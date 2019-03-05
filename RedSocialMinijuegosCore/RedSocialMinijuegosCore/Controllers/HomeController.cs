@@ -10,26 +10,35 @@ namespace RedSocialMinijuegosCore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult categories()
         {
-            ViewData["Message"] = "Your application description page.";
+            
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            
 
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult games()
+        {
+            return View();
+        }
+
+        public IActionResult community()
+        {
+            return View();
+        }
+        public IActionResult blog()
         {
             return View();
         }
