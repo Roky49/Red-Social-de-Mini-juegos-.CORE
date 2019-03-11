@@ -26,15 +26,15 @@ namespace ApiMinijuegos.Model
 
 
         [Column("imagen")]
-        public String imagen { get; set; }
+        public String Imagen { get; set; }
         //[AllowHtml]
         [Column("css")]
-        public String css { get; set; }
+        public String Css { get; set; }
         //[AllowHtml]
         [Column("scritp")]
-        public String scritp { get; set; }
+        public String Scritp { get; set; }
         //[AllowHtml]
         [Column("html")]
-        public String html { get; set; }
+        public String Html { get; set; }
     }
 }

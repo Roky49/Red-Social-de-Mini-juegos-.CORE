@@ -25,7 +25,7 @@ namespace ApiMinijuegos.Repositories
         Categoria BuscarCategoria(int id);
 
         void ModificarJuego(Juego juego);
-        List<Categoria> lista();
+        List<Categoria> ListaCategorias();
         List<Usuario> GetUsuarios();
         List<Juego> BuscarJuegoCategoria(int tipo);
         List<Juego> GetJuegos();

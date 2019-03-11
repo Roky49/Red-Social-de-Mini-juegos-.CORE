@@ -16,7 +16,7 @@ namespace ApiMinijuegos.Model
         public int IdPartida { get; set; }
 
         [Column("idUsuario")]
-        public int idUsuario { get; set; }
+        public int IdUsuario { get; set; }
 
         [Column("NombreJuego")]
         public String NombreJuego { get; set; }

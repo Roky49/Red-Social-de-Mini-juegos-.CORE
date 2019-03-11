@@ -9,8 +9,8 @@ namespace ApiMinijuegos.Repositories
 {
     public class RepositoryMinijuegos:IRepositoryMinijuegos
     {
-        minijuegosContex contex;
-        public RepositoryMinijuegos(minijuegosContex contex)
+        MinijuegosContex contex;
+        public RepositoryMinijuegos(MinijuegosContex contex)
         {
             this.contex = contex;
         }
@@ -20,13 +20,13 @@ namespace ApiMinijuegos.Repositories
             var consulta = from datos in contex.Juegos where datos.Nombre == juego.Nombre select datos;
             Juego j1 = consulta.FirstOrDefault();
             j1.Nombre = juego.Nombre;
-            j1.html = juego.html;
-            j1.imagen = juego.imagen;
+            j1.Html = juego.Html;
+            j1.Imagen = juego.Imagen;
             j1.Nveces = 0;
             j1.Tipo = juego.Tipo;
             j1.Valoracion = 0;
-            j1.css = juego.css;
-            j1.scritp = juego.scritp;
+            j1.Css = juego.Css;
+            j1.Scritp = juego.Scritp;
 
 
             this.contex.SaveChanges();
@@ -35,13 +35,13 @@ namespace ApiMinijuegos.Repositories
         {
             Juego j1 = new Juego();
             j1.Nombre = juego.Nombre;
-            j1.html = juego.html;
-            j1.imagen = juego.imagen;
+            j1.Html = juego.Html;
+            j1.Imagen = juego.Imagen;
             j1.Nveces = 0;
             j1.Tipo = juego.Tipo;
             j1.Valoracion = 0;
-            j1.css = juego.css;
-            j1.scritp = juego.scritp;
+            j1.Css = juego.Css;
+            j1.Scritp = juego.Scritp;
 
             this.contex.Juegos.Add(j1);
             this.contex.SaveChanges();
@@ -229,7 +229,7 @@ namespace ApiMinijuegos.Repositories
 
         }
 
-        public List<Categoria> lista()
+        public List<Categoria> ListaCategorias()
         {
             var consulta = from datos in contex.Categorias select datos;
 
@@ -333,7 +333,7 @@ namespace ApiMinijuegos.Repositories
 
         public List<MostrarPerfil> GetMostrarPerfils(String Usuario)
         {
-            var consulta = from datos in contex.mostrarPerfils
+            var consulta = from datos in contex.MostrarPerfils
                            where datos.Nombre == Usuario
                            select datos;
 

@@ -28,7 +28,7 @@ namespace ApiMinijuegos
         public void ConfigureServices(IServiceCollection services)
         {
             String cadenaconexion = Configuration.GetConnectionString("cadenahospitalazure");
-            services.AddDbContext<minijuegosContex>(options => options.UseSqlServer(cadenaconexion));
+            services.AddDbContext<MinijuegosContex>(options => options.UseSqlServer(cadenaconexion));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

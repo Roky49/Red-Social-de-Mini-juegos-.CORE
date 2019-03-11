@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ApiMinijuegos.Data
 {
-    public class minijuegosContex:DbContext
+    public class MinijuegosContex:DbContext
     {
-        public minijuegosContex() : base() { }
+        public MinijuegosContex() : base() { }
 
 
 
@@ -23,7 +23,7 @@ namespace ApiMinijuegos.Data
 
         // vistas
         public DbSet<Ranking> Rankings { get; set; }
-        public DbSet<MostrarPerfil> mostrarPerfils { get; set; }
+        public DbSet<MostrarPerfil> MostrarPerfils { get; set; }
 
 
 
