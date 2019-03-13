@@ -23,7 +23,7 @@ namespace ApiMinijuegos.Model
         [Column("Premio")]
         public int Premio { get; set; }
 
-        [Column("Premio")]
+        [Column("Juego")]
         public String Juego { get; set; }
         [Column("Tipo")]
         public String Tipo { get; set; }

@@ -229,12 +229,7 @@ namespace ApiMinijuegos.Repositories
 
         }
 
-        public List<Categoria> ListaCategorias()
-        {
-            var consulta = from datos in contex.Categorias select datos;
-
-            return consulta.ToList();
-        }
+       
 
         public List<Categoria> Categorias()
         {

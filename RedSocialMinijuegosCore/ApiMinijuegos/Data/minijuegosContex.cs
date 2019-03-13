@@ -9,7 +9,7 @@ namespace ApiMinijuegos.Data
 {
     public class MinijuegosContex:DbContext
     {
-        public MinijuegosContex() : base() { }
+        public MinijuegosContex(DbContextOptions<MinijuegosContex> options) : base(options) { }
 
 
 

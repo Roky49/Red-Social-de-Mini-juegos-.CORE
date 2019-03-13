@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiMinijuegos.Model;
+using ApiMinijuegos.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiMinijuegos.Controllers
@@ -10,36 +12,53 @@ namespace ApiMinijuegos.Controllers
     [ApiController]
     public class MinijuegosController : ControllerBase
     {
+        IRepositoryMinijuegos repo;
+        public MinijuegosController(IRepositoryMinijuegos repo)
+        {
+            this.repo = repo;
+        }
         // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        //[HttpGet]
+        //public ActionResult<List<Doctores>> Get()
+        //{
+        //    return this.repo.GetDoctores();
+        //}
+
+        //[HttpGet]
+        //[Route("[action]")]
+        //public ActionResult<List<String>> GetEspecialidades()
+        //{
+        //    return this.repo.GetEspecialidad();
+        //}
+       
+
+        [HttpGet("{Categorias}")]
+        public ActionResult<List<Categoria>> GetCategoria()
         {
-            return new string[] { "value1", "value2" };
+            return this.repo.Categorias();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("{Juegos}")]
+        public ActionResult<List<Juego>> GetJuego()
         {
-            return "value";
+            return this.repo.GetJuegos();
+        }
+        [HttpGet("{Usuarios}")]
+        public ActionResult<List<Usuario>> GetUsuarios()
+        {
+            return this.repo.GetUsuarios();
+        }
+        
+        [HttpGet("{Nombrejuegos}")]
+        public ActionResult<List<String>> NombreJuegos()
+        {
+            return this.repo.Nombrejuego();
+        }
+        [HttpGet("{Categorias}/{id}")]
+        public ActionResult<Categoria> BuscarCategoria(int id)
+        {
+            return this.repo.BuscarCategoria(id);
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

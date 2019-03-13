@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiMinijuegos.Data;
+using ApiMinijuegos.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +30,7 @@ namespace ApiMinijuegos
         {
             String cadenaconexion = Configuration.GetConnectionString("cadenahospitalazure");
             services.AddDbContext<MinijuegosContex>(options => options.UseSqlServer(cadenaconexion));
-
+            services.AddTransient<IRepositoryMinijuegos,RepositoryMinijuegos>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

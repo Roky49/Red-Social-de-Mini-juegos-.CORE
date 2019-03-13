@@ -9,26 +9,30 @@ namespace ApiMinijuegos.Repositories
 {
      public interface IRepositoryMinijuegos
     {
-       
+        
+        List<Categoria> Categorias();
+        List<Juego> GetJuegos();
+        List<Usuario> GetUsuarios();
+        List<string> Nombrejuego();
+        Categoria BuscarCategoria(int id);
+
+
 
 
         void BorrarUsuarios(int id);
         void EditarUsuarios(Usuario u);
-
-
-
-        List<Categoria> Categorias();
+       
 
         void EliminarCategoria(int id);
         void CrearCategoria(Categoria Categoria);
         void ModificarCategoria(Categoria categoria);
-        Categoria BuscarCategoria(int id);
+        
 
         void ModificarJuego(Juego juego);
-        List<Categoria> ListaCategorias();
-        List<Usuario> GetUsuarios();
+        
+        
         List<Juego> BuscarJuegoCategoria(int tipo);
-        List<Juego> GetJuegos();
+        
 
         Usuario ExisteUsuario(string usuario);
 
@@ -53,7 +57,7 @@ namespace ApiMinijuegos.Repositories
         List<MostrarPerfil> GetMostrarPerfils(String Usuario);
 
         List<Ranking> GetTodosJuego(int clave, ref int totalregistros, String juego);
-        List<string> Nombrejuego();
+        
 
     }
 }
