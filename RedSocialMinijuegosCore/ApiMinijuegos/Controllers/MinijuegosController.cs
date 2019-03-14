@@ -60,5 +60,72 @@ namespace ApiMinijuegos.Controllers
             return this.repo.BuscarCategoria(id);
         }
 
+        [HttpGet("{BuscarJuegoCategoria}/{tipo}")]
+        public ActionResult<List<Juego>> BuscarJuegoCategoria(int tipo)
+        {
+            return this.repo.BuscarJuegoCategoria(tipo);
+        }
+        [HttpGet("{BuscarJuegoCategoria}/{tipo}")]
+        public ActionResult<List<Juego>> BuscarJuegoCateg(int tipo)
+        {
+            return this.repo.BuscarJuegoCategoria(tipo);
+        }
+        [HttpGet("{ExisteUsuario}/{usuario}")]
+        public ActionResult<Usuario> ExisteUsuario(string usuario)
+        {
+            return this.repo.ExisteUsuario(usuario);
+        }
+       
+        [HttpGet("{BuscarUsuario}/{idusuario}")]
+        public ActionResult<Usuario> BuscarUsuario(int idusuario)
+        {
+            return this.repo.BuscarUsuario(idusuario);
+        }
+
+
+        
+        [HttpGet("{BuscarJuego}/{nombre}")]
+        public ActionResult<Juego> BuscarJuego(String nombre)
+        {
+            return this.repo.BuscarJuego(nombre);
+        }
+
+        [HttpGet("{BuscarUsuarioEmail}/{Email}")]
+        public ActionResult<Usuario> BuscarUsuarioEmail(String Email)
+        {
+            return this.repo.BuscarUsuarioEmail(Email);
+        }
+        
+        [HttpGet("{BuscarUsuarioMote}/{usuario}")]
+        public ActionResult<Usuario> BuscarUsuarioMote(String usuario)
+        {
+            return this.repo.BuscarUsuarioMote(usuario);
+        }
+
+        [HttpGet("{ComprobarUsuario}/{username}/{password}")]
+        public ActionResult<Usuario> ComprobarUsuario(String username
+               , String password)
+        {
+            return this.repo.ComprobarUsuario(username,password);
+        }
+        
+        [HttpGet("{GetTodos}/{clave}/{totalregistros}")]
+        public ActionResult<List<Ranking>> GetTodos(int clave, ref int totalregistros)
+        {
+            return this.repo.GetTodos(clave,ref totalregistros);
+        }
+       
+           [HttpGet("{Perfil}/{Usuario}")]
+        public ActionResult<List<MostrarPerfil>> GetMostrarPerfils(String Usuario)
+        {
+            return this.repo.GetMostrarPerfils(Usuario);
+        }
+        
+
+        [HttpGet("{Ranking}/{clave}/{totalregistros}/{juego}")]
+        public ActionResult<List<Ranking>> GetTodosRanking(int clave, ref int totalregistros, String juego)
+        {
+            return this.repo.GetTodosJuego(clave , ref totalregistros, juego);
+        }
     }
 }

@@ -15,34 +15,32 @@ namespace ApiMinijuegos.Repositories
         List<Usuario> GetUsuarios();
         List<string> Nombrejuego();
         Categoria BuscarCategoria(int id);
-
-
-
-
-        void BorrarUsuarios(int id);
-        void EditarUsuarios(Usuario u);
-       
-
-        void EliminarCategoria(int id);
-        void CrearCategoria(Categoria Categoria);
-        void ModificarCategoria(Categoria categoria);
-        
-
-        void ModificarJuego(Juego juego);
-        
-        
         List<Juego> BuscarJuegoCategoria(int tipo);
-        
-
         Usuario ExisteUsuario(string usuario);
-
         Usuario BuscarUsuario(int idusuario);
-
+        Juego BuscarJuego(String nombre);
         Usuario BuscarUsuarioEmail(String Email);
         Usuario BuscarUsuarioMote(String usuario);
-
         Usuario ComprobarUsuario(String username
-                , String password);
+              , String password);
+
+
+        List<MostrarPerfil> GetMostrarPerfils(String Usuario);
+        List<Ranking> GetTodos(int clave, ref int totalregistros);
+
+        List<Ranking> GetTodosJuego(int clave, ref int totalregistros, String juego);
+        // parte echa
+
+
+
+
+
+
+
+
+
+
+
 
         void NuevoUsuario(String usuario, String email, String password);
         void EliminarJuego(String nombre);
@@ -50,14 +48,25 @@ namespace ApiMinijuegos.Repositories
         void InsertarPuntuacion(int puntos, String nombre);
 
         void Puntuacion(int Puntuacion, String nombre);
-        Juego BuscarJuego(String nombre);
-
-        List<Ranking> GetTodos(int clave, ref int totalregistros);
-
-        List<MostrarPerfil> GetMostrarPerfils(String Usuario);
-
-        List<Ranking> GetTodosJuego(int clave, ref int totalregistros, String juego);
         
+
+        
+
+        
+
+       
+
+
+        void BorrarUsuarios(int id);
+        void EditarUsuarios(Usuario u);
+
+
+        void EliminarCategoria(int id);
+        void CrearCategoria(Categoria Categoria);
+        void ModificarCategoria(Categoria categoria);
+
+
+        void ModificarJuego(Juego juego);
 
     }
 }
