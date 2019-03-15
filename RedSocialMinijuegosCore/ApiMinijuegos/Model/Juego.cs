@@ -22,7 +22,7 @@ namespace ApiMinijuegos.Model
         public int Valoracion { get; set; }
 
         [Column("ValoracionTotal")]
-        public float ValoracionTotal { get; set; }
+        public Double ValoracionTotal { get; set; }
 
 
         [Column("imagen")]
