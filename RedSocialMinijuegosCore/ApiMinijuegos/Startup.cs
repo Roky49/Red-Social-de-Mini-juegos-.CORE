@@ -28,7 +28,7 @@ namespace ApiMinijuegos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            String cadenaconexion = Configuration.GetConnectionString("cadenahospitalazure");
+            String cadenaconexion = Configuration.GetConnectionString("cadenaazure");
             services.AddDbContext<MinijuegosContex>(options => options.UseSqlServer(cadenaconexion));
             services.AddTransient<IRepositoryMinijuegos,RepositoryMinijuegos>();
 

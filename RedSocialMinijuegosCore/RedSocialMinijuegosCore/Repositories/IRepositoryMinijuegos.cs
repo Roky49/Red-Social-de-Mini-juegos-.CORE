@@ -1,16 +1,15 @@
-﻿using ApiMinijuegos.Data;
-using ApiMinijuegos.Model;
+﻿
+using RedSocialMinijuegosCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiMinijuegos.Repositories
+namespace RedSocialMinijuegosCore.Repositories
 {
-     public interface IRepositoryMinijuegos
+    public interface IRepositoryMinijuegos
     {
-        
-       
+        Task<String> GetToken(String usuario, String password);
         List<Juego> GetJuegos();
         List<Categoria> Categorias();
         List<Usuario> GetUsuarios();
@@ -29,7 +28,7 @@ namespace ApiMinijuegos.Repositories
         List<MostrarPerfil> GetMostrarPerfils(String Usuario);
         List<Ranking> GetTodos(Int64 clave, int totalregistros);
 
-        List<Ranking> GetTodosJuego(Int64 clave,  int totalregistros, String juego);
+        List<Ranking> GetTodosJuego(Int64 clave, int totalregistros, String juego);
         void NuevoUsuario(String usuario, String email, String password);
         void EliminarJuego(String nombre);
         void CrearJuego(Juego juego);
@@ -41,6 +40,5 @@ namespace ApiMinijuegos.Repositories
         void ModificarCategoria(Categoria categoria);
         void EditarUsuarios(Usuario u);
         void ModificarJuego(Juego juego);
-
     }
 }

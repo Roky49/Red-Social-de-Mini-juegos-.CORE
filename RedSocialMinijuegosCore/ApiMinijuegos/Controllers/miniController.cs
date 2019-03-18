@@ -35,25 +35,27 @@ namespace ApiMinijuegos.Controllers
 
 
 
-        [HttpGet("/Juegos")]
+        [HttpGet]
         [Route("[action]")]
-        [Route("[action]")]
+        ///api/mini/GetJuego
         public ActionResult<List<Juego>> GetJuego()
         {
             return this.repo.GetJuegos();
         }
 
-        [HttpGet("/Categoria")]
+        [HttpGet]
         [Route("[action]")]
-        
+        //api/mini/GetCategoria
+
         public ActionResult<List<Categoria>> GetCategoria()
         {
             return this.repo.Categorias();
         }
 
-        [HttpGet("/Usuarios")]
+        [HttpGet]
         [Route("[action]")]
-        
+        //api/mini/GetUsuarios
+
         public ActionResult<List<Usuario>> GetUsuarios()
         {
             return this.repo.GetUsuarios();
@@ -61,38 +63,38 @@ namespace ApiMinijuegos.Controllers
 
         [HttpGet("{Nombrejuegos}")]
         [Route("[action]")]
+        //api/mini/NombreJuegos
         public ActionResult<List<String>> NombreJuegos()
         {
             return this.repo.Nombrejuego();
         }
-        [HttpGet("{Categorias}/{id}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{id}")]
+        //api/mini/BuscarCategoria/1
         public ActionResult<Categoria> BuscarCategoria(int id)
         {
             return this.repo.BuscarCategoria(id);
         }
 
-        [HttpGet("{BuscarJuegoCategoria}/{tipo}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{tipo}")]
+        //api/mini/BuscarJuegoCategoria/2
         public ActionResult<List<Juego>> BuscarJuegoCategoria(int tipo)
         {
             return this.repo.BuscarJuegoCategoria(tipo);
         }
-        [HttpGet("{BuscarJuegoCategoria}/{tipo}")]
-        [Route("[action]")]
-        public ActionResult<List<Juego>> BuscarJuegoCateg(int tipo)
-        {
-            return this.repo.BuscarJuegoCategoria(tipo);
-        }
-        [HttpGet("{ExisteUsuario}/{usuario}")]
-        [Route("[action]")]
+     
+        [HttpGet]
+        [Route("[action]/{usuario}")]
+        //api/mini/ExisteUsuario/r@gmail.com
         public ActionResult<Usuario> ExisteUsuario(string usuario)
         {
             return this.repo.ExisteUsuario(usuario);
         }
 
-        [HttpGet("{BuscarUsuario}/{idusuario}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{idusuario}")]
+        //api/mini/BuscarUsuario/4
         public ActionResult<Usuario> BuscarUsuario(int idusuario)
         {
             return this.repo.BuscarUsuario(idusuario);
@@ -100,95 +102,103 @@ namespace ApiMinijuegos.Controllers
 
 
 
-        [HttpGet("{BuscarJuego}/{nombre}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{nombre}")]
+        //api/mini/BuscarJuego/2048
         public ActionResult<Juego> BuscarJuego(String nombre)
         {
             return this.repo.BuscarJuego(nombre);
         }
 
-        [HttpGet("{BuscarUsuarioEmail}/{Email}")]
-        [Route("[action]")]
+        [HttpGet("")]
+        [Route("[action]/{Email}")]
+        //api/mini/BuscarUsuarioEmail/r@gmail.com
         public ActionResult<Usuario> BuscarUsuarioEmail(String Email)
         {
             return this.repo.BuscarUsuarioEmail(Email);
         }
 
-        [HttpGet("{BuscarUsuarioMote}/{usuario}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{usuario}")]
+        //api/mini/BuscarUsuarioMote/roa
         public ActionResult<Usuario> BuscarUsuarioMote(String usuario)
         {
             return this.repo.BuscarUsuarioMote(usuario);
         }
 
-        [HttpGet("{ComprobarUsuario}/{username}/{password}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{username}/{password}")]
+        //api/mini/ComprobarUsuario/r@gmail.com/admin
         public ActionResult<Usuario> ComprobarUsuario(String username
                , String password)
         {
             return this.repo.ComprobarUsuario(username, password);
         }
 
-        [HttpGet("{GetTodos}/{clave}/{totalregistros}")]
-        [Route("[action]")]
-        public ActionResult<List<Ranking>> GetTodos(int clave, ref int totalregistros)
+        [HttpGet]
+        [Route("[action]/{clave}/{totalregistros}")]
+        //api/mini/GetTodos/0/20 clave totalregistros
+        public ActionResult<List<Ranking>> GetTodos(int clave, int totalregistros)
         {
-            return this.repo.GetTodos(clave, ref totalregistros);
+            return this.repo.GetTodos(clave, totalregistros);
         }
 
-        [HttpGet("{Perfil}/{Usuario}")]
-        [Route("[action]")]
+        [HttpGet]
+        [Route("[action]/{Usuario}")]
+        //api/mini/GetMostrarPerfils/ro
         public ActionResult<List<MostrarPerfil>> GetMostrarPerfils(String Usuario)
         {
             return this.repo.GetMostrarPerfils(Usuario);
         }
 
 
-        [HttpGet("{Ranking}/{clave}/{totalregistros}/{juego}")]
-        [Route("[action]")]
-        public ActionResult<List<Ranking>> GetTodosRanking(int clave, ref int totalregistros, String juego)
+        [HttpGet]
+        [Route("[action]/{clave}/{totalregistros}/{juego}")]
+        //api/mini/GetTodosRanking/0/12/2048 clave total
+        public ActionResult<List<Ranking>> GetTodosRanking(int clave, int totalregistros, String juego)
         {
-            return this.repo.GetTodosJuego(clave, ref totalregistros, juego);
+            return this.repo.GetTodosJuego(clave, totalregistros, juego);
         }
 
-        [HttpPost("{NuevoUsuario}/{usuario}/{email}/{password}")]
+        [HttpPost]
         [Route("[action]")]
         public void NuevoUsuario(String usuario, String email, String password)
         {
             this.repo.NuevoUsuario(usuario, email, password);
         }
 
-        [HttpDelete("{Juegos}/{nombre}")]
+        [HttpDelete]
         [Route("[action]")]
         public void EliminarJuego(String nombre)
         {
             this.repo.EliminarJuego(nombre);
         }
 
-        [HttpPost("{Juegos}/{Juego}")]
+        [HttpPost]
         [Route("[action]")]
+        //api/mini/CrearJuego  + json
         public void CrearJuego(Juego juego)
         {
             this.repo.CrearJuego(juego);
         }
 
-        [HttpPost("{NuevaPartida}")]
-        [Route("[action]")]
+        [HttpPost]
+        [Route("[action]/{puntos}/{nombre}")]
         public void InsertarPuntuacion(int puntos, String nombre)
         {
             this.repo.InsertarPuntuacion(puntos, nombre);
         }
 
-        [HttpDelete("{Usuario}/{id}")]
-        [Route("[action]")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public void BorrarUsuarios(int id)
         {
             this.repo.BorrarUsuarios(id);
         }
 
 
-        [HttpDelete("{Categorias}/{id}")]
-        [Route("[action]")]
+        [HttpDelete]
+        [Route("[action]/{id}")]
         public void EliminarCategoria(int id)
         {
             this.repo.EliminarCategoria(id);
@@ -196,29 +206,33 @@ namespace ApiMinijuegos.Controllers
 
 
 
-        [HttpPost("{Categoria}/{NuevaCategoria}")]
+        [HttpPost]
         [Route("[action]")]
+        ///api/mini/CrearCategoria +json
         public void CrearCategoria(Categoria categoria)
         {
             this.repo.CrearCategoria(categoria);
         }
 
-        [HttpPut("{Categoria}/{ModCategoria}")]
+        [HttpPut]
         [Route("[action]")]
+        //api/mini/ModificarCategoria +json
         public void ModificarCategoria(Categoria categoria)
         {
             this.repo.ModificarCategoria(categoria);
         }
 
-        [HttpPut("{Usuarios}/{usuario}")]
+        [HttpPut]
         [Route("[action]")]
+        //api/mini/EditarUsuarios
         public void EditarUsuarios(Usuario usuario)
         {
             this.repo.EditarUsuarios(usuario);
         }
 
-        [HttpPut("{Juego}/{ModificarJuego}")]
+        [HttpPut]
         [Route("[action]")]
+        //api/mini/ModificarJuego + Json 
         public void ModificarJuego(Juego juego)
         {
             this.repo.ModificarJuego(juego);

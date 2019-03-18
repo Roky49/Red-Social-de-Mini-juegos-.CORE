@@ -295,26 +295,27 @@ namespace ApiMinijuegos.Repositories
 
 
 
-        public List<Ranking> GetTodos(int clave, ref int totalregistros)
+        public List<Ranking> GetTodos(Int64 clave, int totalregistros)
         {
             var consulta = from datos in contex.Rankings
 
                            select datos;
 
             totalregistros = consulta.Count();
-            return consulta.OrderByDescending(z => z.Clave).Skip(clave).Take(20).ToList();
+
+            return consulta.OrderByDescending(z => z.Clave).Skip((int)clave).Take(20).ToList();
 
 
         }
 
-        public List<Ranking> GetTodosJuego(int clave, ref int totalregistros, string juego)
+        public List<Ranking> GetTodosJuego(Int64 clave,  int totalregistros, string juego)
         {
             var consulta = from datos in contex.Rankings
                            where datos.NombreJuego == juego
                            select datos;
             totalregistros = consulta.Count();
-
-            return consulta.OrderByDescending(z => z.Puntuacion).Skip(clave).Take(7).ToList();
+          
+            return consulta.OrderByDescending(z => z.Puntuacion).Skip((int)clave).Take(7).ToList();
         }
 
         public List<string> Nombrejuego()
