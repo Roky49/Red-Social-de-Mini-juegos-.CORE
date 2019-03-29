@@ -161,14 +161,16 @@ namespace ApiMinijuegos.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("[action]/{usuario}/{email}/{password}")]
+        //api/mini/NuevoUsuario/aaaaaaaa/aaaaaaa@gmail/123
         public void NuevoUsuario(String usuario, String email, String password)
         {
             this.repo.NuevoUsuario(usuario, email, password);
         }
 
         [HttpDelete]
-        [Route("[action]")]
+        [Route("[action]/{nombre}")]
+        //api/mini/EliminarJuego/prubea
         public void EliminarJuego(String nombre)
         {
             this.repo.EliminarJuego(nombre);
@@ -184,6 +186,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPost]
         [Route("[action]/{puntos}/{nombre}")]
+        //api/mini/InsertarPuntuacion/100/prubea
         public void InsertarPuntuacion(int puntos, String nombre)
         {
             this.repo.InsertarPuntuacion(puntos, nombre);
@@ -191,6 +194,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpDelete]
         [Route("[action]/{id}")]
+        //api/mini/BorrarUsuarios/6
         public void BorrarUsuarios(int id)
         {
             this.repo.BorrarUsuarios(id);
@@ -199,6 +203,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpDelete]
         [Route("[action]/{id}")]
+        //api/mini/EliminarCategoria/6
         public void EliminarCategoria(int id)
         {
             this.repo.EliminarCategoria(id);
