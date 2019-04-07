@@ -1,4 +1,5 @@
 ﻿using ApiMinijuegos.Model;
+using ApiMinijuegos.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ApiMinijuegos.Data
         public MinijuegosContex(DbContextOptions<MinijuegosContex> options) : base(options) { }
 
 
-
+        public DbSet<LoginModel> LoginModel { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Juego> Juegos { get; set; } 

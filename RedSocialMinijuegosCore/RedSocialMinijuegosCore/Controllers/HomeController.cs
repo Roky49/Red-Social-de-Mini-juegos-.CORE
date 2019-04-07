@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RedSocialMinijuegosCore.Model;
+using RedSocialMinijuegosCore.Models;
 using RedSocialMinijuegosCore.Repositories;
 
 namespace RedSocialMinijuegosCore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult index()
+        IRepositoryMinijuegos repo;
+        public HomeController(IRepositoryMinijuegos repo)
         {
-            return View();
+            this.repo = repo;
+        }
+
+        public async Task<IActionResult> index()
+        {
+            List<Juego> juegos = await this.repo.GetJuegos();
+            return View(juegos);
+        }
+        [HttpPost]
+        public async Task<ActionResult> index(int estrellas, String nombre)
+        {
+            this.repo.Puntuacion(estrellas, nombre);
+            List<Juego> juegos = await this.repo.GetJuegos();
+            return View(juegos);
         }
 
         public IActionResult categories()
@@ -30,68 +42,27 @@ namespace RedSocialMinijuegosCore.Controllers
             return View();
         }
 
-        public IActionResult games()
+        public async Task<IActionResult> games(int? id)
         {
-            return View();
-        }
 
-        public IActionResult community()
-        {
-            return View();
-        }
-        public IActionResult blog()
-        {
-            return View();
-        }
-        IRepositoryMinijuegos repo;
-        public HomeController(IRepositoryMinijuegos repo)
-        {
-            this.repo = repo;
-        }
-
-        // GET: Home
-        public ActionResult Index()
-        {
-            List<Juego> juegos = this.repo.GetJuegos();
-            return View(juegos);
-        }
-        [HttpPost]
-        public ActionResult Index( int estrellas,String nombre)
-        {
-            this.repo.Puntuacion(estrellas, nombre);
-            List<Juego> juegos = this.repo.GetJuegos();
-            return View(juegos);
-        }
-
-
-        public ActionResult Compay()
-        {
-            
-            return View();
-        }
-
-        public ActionResult Games(int? id )
-        {
-             
-
-            if (id!=null)
+            if (id != null)
             {
                 List<Juego> j = this.repo.BuscarJuegoCategoria((int)id);
                 return View(j);
             }
             else
             {
-                List<Juego> j = this.repo.GetJuegos();
+                List<Juego> j = await this.repo.GetJuegos();
                 return View(j);
             }
-           
 
-            
+           
         }
+
         [HttpPost]
-        public ActionResult Games(int? id, int? estrellas,String nombre)
+        public async Task<IActionResult> games(int? id, int? estrellas, String nombre)
         {
-            if(estrellas!= null)
+            if (estrellas != null)
             {
                 this.repo.Puntuacion((int)estrellas, nombre);
             }
@@ -103,7 +74,7 @@ namespace RedSocialMinijuegosCore.Controllers
             }
             else
             {
-                List<Juego> j = this.repo.GetJuegos();
+                List<Juego> j = await this.repo.GetJuegos();
                 return View(j);
             }
 
@@ -111,39 +82,54 @@ namespace RedSocialMinijuegosCore.Controllers
 
         }
 
+        public IActionResult community()
+        {
+            return View();
+        }
+        public IActionResult blog()
+        {
+            return View();
+        }
+       
+        // GET: Home
+       
+       
+     
+
 
 
        
-        public ActionResult _categorias()
+        public async Task<ActionResult> _categorias()
         {
-            List<Categoria> categoria = this.repo.Categorias();
+            List<Categoria> categoria = await this.repo.Categorias();
             return PartialView(categoria);
         }
 
-        public ActionResult _Navegacion()
-        {
-            UsuarioPrincipal usu = HttpContext.User as UsuarioPrincipal;
-            if (usu != null) { 
-            Usuario usuario = this.repo.BuscarUsuario(usu.IdUsuario);
-                return PartialView(usuario);
-            }
+        //public ActionResult _Navegacion()
+        //{
+        //    Usuario usu = HttpContext.User.Claims.ToList();
+        //    if (HttpContext.User is Usuario usu)
+        //    {
+        //        Usuario usuario = this.repo.BuscarUsuario(usu.IdUsuario);
+        //        return PartialView(usuario);
+        //    }
 
-            return PartialView(); 
-        }
+        //    return PartialView(); 
+        //}
 
-        public ActionResult _reslayout()
-        {
-            UsuarioPrincipal usu = HttpContext.User as UsuarioPrincipal;
-            if (usu != null)
-            {
-                Usuario usuario = this.repo.BuscarUsuario(usu.IdUsuario);
-                return PartialView(usuario);
-            }
+        //public ActionResult _reslayout()
+        //{
+        //    String usu = HttpContext.User.Identity.Name;
+        //    if (usu != null)
+        //    {
+        //        Usuario usuario = this.repo.BuscarUsuario(usu.IdUsuario);
+        //        return PartialView(usuario);
+        //    }
 
-            return PartialView(); 
-        }
+        //    return PartialView(); 
+        //}
 
-        public ActionResult Ranking(int? clave , String juego)
+        public async Task<ActionResult> Ranking(int? clave , String juego)
         {
             if (clave == null)
             {
@@ -155,18 +141,18 @@ namespace RedSocialMinijuegosCore.Controllers
             if (juego != null && juego!= "Elige el juego") { 
 
 
-             usuarios =
+             usuarios = await
               this.repo.GetTodosJuego(clave.GetValueOrDefault(), numregistros, juego);
                 ViewBag.juego = juego;
             }
             else 
             {
                 clave = 0;
-                usuarios = this.repo.GetTodos(clave.GetValueOrDefault(),  numregistros);
+                usuarios =  await this.repo.GetTodos(clave.GetValueOrDefault(),  numregistros);
                 ViewBag.juego = "a";
             }
             ViewBag.Registros = numregistros;
-            List<string> listaJuegos = this.repo.Nombrejuego();
+            List<string> listaJuegos =  await this.repo.Nombrejuego();
             ViewBag.nombrejuegos = listaJuegos;
            
             return View(usuarios);

@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RedSocialMinijuegosCore.Model;
+using RedSocialMinijuegosCore.Filter;
+
+using RedSocialMinijuegosCore.Models;
 using RedSocialMinijuegosCore.Repositories;
 
 namespace RedSocialMinijuegosCore.Controllers
 {
+    [UsuarioAuthorizeAttribute]
     public class JuegosController : Controller
     {
 
@@ -21,17 +25,18 @@ namespace RedSocialMinijuegosCore.Controllers
             this.repo = repo; ;
         }
         // GET: Juegos
-        public ActionResult Index(String nombre)
+        public async Task<ActionResult> Index(String nombre)
         {
-            Juego j = this.repo.BuscarJuego(nombre);
+            String token = HttpContext.Session.GetString("TOKEN");
+            Juego j = await this.repo.BuscarJuego(nombre,token);
             return View(j);
         }
         [HttpPost]
-        public ActionResult Index(int puntos, String nombre)
+        public async Task<ActionResult> Index(int puntos, String nombre)
         {
-
-            this.repo.InsertarPuntuacion(puntos, nombre);
-            Juego j = this.repo.BuscarJuego(nombre);
+            String token = HttpContext.Session.GetString("TOKEN");
+           this.repo.InsertarPuntuacion(puntos, nombre,token);
+            Juego j = await this.repo.BuscarJuego(nombre,token);
             return View(j);
 
         }
@@ -43,10 +48,11 @@ namespace RedSocialMinijuegosCore.Controllers
         }
 
 
-        public ActionResult Perfil(String usuario)
+        public async Task<ActionResult> Perfil(String usuario)
         {
-            Usuario usu = this.repo.BuscarUsuarioMote(usuario);
-            List<MostrarPerfil> perfil = this.repo.GetMostrarPerfils(usuario);
+            String token = HttpContext.Session.GetString("TOKEN");
+            Usuario usu = await this.repo.BuscarUsuarioMote(usuario,token);
+            List<MostrarPerfil> perfil = await this.repo.GetMostrarPerfils(usuario, token);
             ViewBag.usario = usu;
             return View(perfil);
         }

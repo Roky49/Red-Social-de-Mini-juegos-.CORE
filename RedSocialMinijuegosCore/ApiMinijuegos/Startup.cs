@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiMinijuegos.Data;
 using ApiMinijuegos.Repositories;
+using ApiMinijuegos.Token;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +29,16 @@ namespace ApiMinijuegos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            HelperToken helpertoken = new HelperToken(this.Configuration);
             String cadenaconexion = Configuration.GetConnectionString("cadenaazure");
             services.AddDbContext<MinijuegosContex>(options => options.UseSqlServer(cadenaconexion));
             services.AddTransient<IRepositoryMinijuegos,RepositoryMinijuegos>();
+                services.AddAuthentication(helpertoken.GetAuthOptions())
+                    .AddJwtBearer(helpertoken.GetJwtOptions());
+                services.AddMvc();
+            
+
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

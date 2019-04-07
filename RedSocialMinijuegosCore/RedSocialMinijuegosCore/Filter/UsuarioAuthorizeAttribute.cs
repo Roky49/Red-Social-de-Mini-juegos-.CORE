@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RedSocialMinijuegosCore.Filter
 {
-    public class ClientesAuthorizeAttribute : AuthorizeAttribute
+    public class UsuarioAuthorizeAttribute : AuthorizeAttribute
         , IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)

@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RedSocialMinijuegosCore.Model;
+
+using RedSocialMinijuegosCore.Models;
 using RedSocialMinijuegosCore.Repositories;
 
 namespace RedSocialMinijuegosCore.Controllers
@@ -42,16 +43,16 @@ namespace RedSocialMinijuegosCore.Controllers
             {
                 //SI TENEMOS TOKEN, TENEMOS EMPLEADO
                 //POR LO QUE PODEMOS RECUPERARLO DEL METODO PERFILEMPLEADO
-                Empleado empleado = await
-                    this.repo.PerfilEmpleado(token);
+                Usuario usu = await
+                    this.repo.BuscarUsuarioEmail(usuario,token);
                 //CREAMOS AL USUARIO PARA EL ENTORNO MVC DE CORE
                 ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
                 //ALMACENAMOS EL ID DE EMPLEADO
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier
-                    , empleado.IdEmpleado.ToString()));
-                identity.AddClaim(new Claim(ClaimTypes.Name, empleado.Apellido));
+                    , usu.IdUsuario.ToString()));
+                identity.AddClaim(new Claim(ClaimTypes.Name, usu.Nombre));
                 //GUARDAMOS TAMBIEN EL ROLE DEL EMPLEADO
-                identity.AddClaim(new Claim(ClaimTypes.Role, empleado.Oficio));
+                identity.AddClaim(new Claim(ClaimTypes.Role, usu.Roles));
                 ClaimsPrincipal principal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync
                     (CookieAuthenticationDefaults.AuthenticationScheme, principal
@@ -59,14 +60,14 @@ namespace RedSocialMinijuegosCore.Controllers
                     {
                         IsPersistent = true
                     ,//DEBERIAMOS DAR EL MISMO TIEMPO DE SESSION QUE TOKEN
-                        ExpiresUtc = DateTime.Now.AddMinutes(10)
+                        ExpiresUtc = DateTime.Now.AddMinutes(20)
                     });
                 //UNA VEZ QUE TENEMOS A NUESTRO EMPLEADO ALMACENADO
                 //DEBEMOS ALMACENAR EL TOKEN EN SESSION PARA PODER REUTILIZARLO
                 //EN OTROS METODOS DE LA APP
                 HttpContext.Session.SetString("TOKEN", token);
                 //REDIRECCIONAMOS A UNA PAGINA DE INICIO PROTEGIDA
-                return RedirectToAction("Index", "Empleados");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -102,10 +103,10 @@ namespace RedSocialMinijuegosCore.Controllers
         }
 
         [HttpPost]
-        public ActionResult NuevoRegistro(String usuario, String email, String password, String password2)
+        public async Task<ActionResult> NuevoRegistro(String usuario, String email, String password, String password2)
         {
-            Usuario ExistEmail = this.repo.BuscarUsuarioEmail(email);
-            Usuario ExisteMote = this.repo.BuscarUsuarioMote(usuario);
+            Usuario ExistEmail =  await this.repo.BuscarUsuarioEmail(email, null);
+            Usuario ExisteMote = await this.repo.BuscarUsuarioMote(usuario,null);
             if (password != password2)
             {
                 ViewBag.men = "la contraseña no coincide";

@@ -1,8 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.File;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RedSocialMinijuegosCore.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -11,7 +16,7 @@ namespace RedSocialMinijuegosCore.Repositories
 {
     public class RepositoryMinijuegos : IRepositoryMinijuegos
     {
-
+        CloudFileDirectory root;
         private String uriapi;
         private MediaTypeWithQualityHeaderValue headerjson;
 
@@ -20,6 +25,16 @@ namespace RedSocialMinijuegosCore.Repositories
             this.uriapi = "https://localhost:44394/";
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
+            String keys =
+                CloudConfigurationManager.GetSetting("cuentastorage");
+            CloudStorageAccount account =
+                CloudStorageAccount.Parse(keys);
+            CloudFileClient client =
+                account.CreateCloudFileClient();
+            CloudFileShare shared = 
+                client.GetShareReference("sharedtajamar");
+            this.root = shared.GetRootDirectoryReference();
+
         }
 
         public async Task<String> GetToken(String usuario
@@ -85,134 +100,118 @@ new MediaTypeWithQualityHeaderValue("application/json");
             }
         }
 
-        public void BorrarUsuarios(int id)
+        public void UploadFile(String nombre, Stream stream)
         {
-            throw new NotImplementedException();
+            //NECESITAMOS UNA REFERENCIA AL FILE
+            CloudFile file =
+                this.root.GetFileReference(nombre);
+            file.UploadFromStreamAsync(stream);
         }
 
-        public Categoria BuscarCategoria(int id)
+        public async Task<List<Juego>> GetJuegos()
         {
-            throw new NotImplementedException();
+            List<Juego> juegos = await
+               this.CallApi<List<Juego>>("api/mini/GetJuego", null);
+            return juegos;
         }
 
-        public Juego BuscarJuego(string nombre)
+        public async Task<List<Categoria>> Categorias()
         {
-            throw new NotImplementedException();
+            List<Categoria> categorias = await
+               this.CallApi<List<Categoria>>("api/mini/Categorias", null);
+            return categorias;
         }
 
-        public List<Juego> BuscarJuegoCategoria(int tipo)
+        public async Task<List<Usuario>> GetUsuarios()
         {
-            throw new NotImplementedException();
+                 List<Usuario> usuario = await
+               this.CallApi<List<Usuario>>("api/mini/GetUsuarios", null);
+            return usuario;
         }
 
-        public Usuario BuscarUsuario(int idusuario)
+        public async Task<List<string>> Nombrejuego()
         {
-            throw new NotImplementedException();
+            List<String> nombrejuegos = await
+          this.CallApi<List<String>>("api/mini/NombreJuegos", null);
+            return nombrejuegos;
         }
 
-        public Usuario BuscarUsuarioEmail(string Email)
+        public async Task<Categoria> BuscarCategoria(int id)
         {
-            throw new NotImplementedException();
+            Categoria categoria = await
+         this.CallApi<Categoria>("api/mini/BuscarCategoria/"+id, null);
+            return categoria;
         }
 
-        public Usuario BuscarUsuarioMote(string usuario)
+        public async Task<List<Juego>> BuscarJuegoCategoria(int tipo)
         {
-            throw new NotImplementedException();
+            List<Juego> juegos = await
+       this.CallApi<List<Juego>>("api/mini/BuscarJuegoCategoria/" + tipo, null);
+            return juegos;
         }
 
-        public List<Categoria> Categorias()
+        public async Task<Usuario> ExisteUsuario(string usuario)
         {
-            throw new NotImplementedException();
+            Usuario usu = await
+     this.CallApi<Usuario>("api/mini/ExisteUsuario/" + usuario, null);
+            return usu;
         }
 
-        public Usuario ComprobarUsuario(string username, string password)
+        public async Task<Usuario> BuscarUsuario(int idusuario)
         {
-            throw new NotImplementedException();
+            Usuario usu = await
+             this.CallApi<Usuario>("api/mini/BuscarUsuario/" + idusuario, null);
+            return usu;
         }
 
-        public void CrearCategoria(Categoria Categoria)
+        public async Task<Juego> BuscarJuego(string nombre, string token)
         {
-            throw new NotImplementedException();
+            Juego usu = await
+            this.CallApi<Juego>("api/mini/BuscarJuego/" + nombre, token);
+            return usu;
         }
 
-        public void CrearJuego(Juego juego)
+        public async Task<Usuario> BuscarUsuarioEmail(string Email, string token)
         {
-            throw new NotImplementedException();
+            Usuario usu = await
+            this.CallApi<Usuario>("api/mini/BuscarUsuarioEmail/" + Email, token);
+            return usu;
         }
 
-        public void EditarUsuarios(Usuario u)
+        public async Task<Usuario> BuscarUsuarioMote(string usuario, string token)
         {
-            throw new NotImplementedException();
+            Usuario usu = await
+           this.CallApi<Usuario>("api/mini/BuscarUsuarioMote/" + usuario, token);
+            return usu;
         }
 
-        public void EliminarCategoria(int id)
+        public async Task<Usuario> ComprobarUsuario(string username, string password)
         {
-            throw new NotImplementedException();
+            Usuario usu = await
+          this.CallApi<Usuario>("api/mini/ComprobarUsuario/" + username+"/"+password, null);
+            return usu;
         }
 
-        public void EliminarJuego(string nombre)
+        public async Task<List<MostrarPerfil>> GetMostrarPerfils(string Usuario, string token)
         {
-            throw new NotImplementedException();
+            List<MostrarPerfil> usu = await
+        this.CallApi<List<MostrarPerfil>>("api/mini/GetMostrarPerfils/" + Usuario , token);
+            return usu;
         }
 
-        public Usuario ExisteUsuario(string usuario)
+        public async Task<List<Ranking>> GetTodos(long clave, int totalregistros)
         {
-            throw new NotImplementedException();
+            List<Ranking> rankings = await
+       this.CallApi<List<Ranking>>("api/mini/GetTodos/" + clave+"/"+totalregistros, null);
+            return rankings;
         }
 
-        public List<Juego> GetJuegos()
+        public async Task<List<Ranking>> GetTodosJuego(long clave, int totalregistros, string juego)
         {
-            throw new NotImplementedException();
+            List<Ranking> rankings = await
+    this.CallApi<List<Ranking>>("api/mini/GetTodos/" + clave + "/" + totalregistros+"/"+juego, null);
+            return rankings;
         }
 
-        public List<MostrarPerfil> GetMostrarPerfils(string Usuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Ranking> GetTodos(long clave, int totalregistros)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Ranking> GetTodosJuego(long clave, int totalregistros, string juego)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Usuario> GetUsuarios()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertarPuntuacion(int puntos, string nombre)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarCategoria(Categoria categoria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarJuego(Juego juego)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<string> Nombrejuego()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void NuevoUsuario(string usuario, string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Puntuacion(int Puntuacion, string nombre)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

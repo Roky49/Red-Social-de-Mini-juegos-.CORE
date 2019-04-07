@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RedSocialMinijuegosCore.Model;
+
+using RedSocialMinijuegosCore.Models;
 using RedSocialMinijuegosCore.Repositories;
 
 namespace RedSocialMinijuegosCore.Controllers
@@ -22,83 +25,83 @@ namespace RedSocialMinijuegosCore.Controllers
         {
             return View();
         }
-        public ActionResult Juegos()
+        public async Task<ActionResult> Juegos()
         {
-            List<Juego> juegos = this.repo.GetJuegos();
+            List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
-        public ActionResult EditJuegos(String id)
+        //public async Task<ActionResult> EditJuegos(String id)
+        //{
+        //    Juego j = await this.repo.BuscarJuego(id);
+
+        //    return View(j);
+        //}
+        //[HttpPost]
+
+        //public async Task<ActionResult> EditJuegos(Juego j, HttpPostedFileBase imagen)
+        //{
+
+        //    if (imagen != null)
+        //    {
+
+
+        //        imagen.SaveAs(Server.MapPath("~/Imagenes/" + imagen.FileName));
+        //    }
+
+        //    this.repo.ModificarJuego(j);
+        //    List<Juego> juegos = this.repo.GetJuegos();
+        //    return View("Juegos", juegos);
+
+
+        //}
+        public async Task<ActionResult> CreateJuegos()
         {
-            Juego j = this.repo.BuscarJuego(id);
-
-            return View(j);
-        }
-        [HttpPost]
-
-        public ActionResult EditJuegos(Juego j, HttpPostedFileBase imagen)
-        {
-
-            if (imagen != null)
-            {
-
-
-                imagen.SaveAs(Server.MapPath("~/Imagenes/" + imagen.FileName));
-            }
-
-            this.repo.ModificarJuego(j);
-            List<Juego> juegos = this.repo.GetJuegos();
-            return View("Juegos", juegos);
-
-
-        }
-        public ActionResult CreateJuegos()
-        {
-            ViewBag.cate = this.repo.Categorias();
+            ViewBag.cate = await this.repo.Categorias();
             return View();
         }
         [HttpPost]
 
-        public ActionResult CreateJuegos(Juego j, HttpPostedFileBase imagen)
+        public async Task<ActionResult> CreateJuegos(Juego j, IFormFile imagen)
         {
-            if (imagen != null)
-            {
-
-
-                imagen.SaveAs(Server.MapPath("~/Imagenes/" + imagen.FileName));
-            }
-            j.Imagen = imagen.FileName;
+          
+            Stream stream = imagen.OpenReadStream();
+            String nombre = imagen.FileName;
+            this.repo.UploadFile(nombre, stream);
+            ViewBag.Mensaje = "Fichero subido";
+            
+           
             this.repo.CrearJuego(j);
-            List<Juego> juegos = this.repo.GetJuegos();
+            List<Juego> juegos = await this.repo.GetJuegos();
             return View("Juegos", juegos);
         }
 
-        public ActionResult BorrarJuegos(String id)
+        public async Task<ActionResult> BorrarJuegos(String id)
         {
             this.repo.EliminarJuego(id);
-            List<Juego> juegos = this.repo.GetJuegos();
+            List<Juego> juegos = await this.repo.GetJuegos();
             return View("Juegos", juegos);
         }
 
-        public ActionResult Categorias()
+        public async Task<ActionResult> Categorias()
         {
-            List<Categoria> categorias = this.repo.Categorias();
+            List<Categoria> categorias = await this.repo.Categorias();
 
             return View(categorias);
         }
-        public ActionResult EditCategoria(int id)
+        public async Task<ActionResult> EditCategoria(int id)
         {
-            Categoria j = this.repo.BuscarCategoria(id);
+            Categoria j =  await this.repo.BuscarCategoria(id);
 
             return View(j);
         }
         [HttpPost]
 
-        public ActionResult EditCategoria(Categoria j)
+        public async Task<ActionResult> EditCategoria(Categoria j)
         {
 
 
             this.repo.ModificarCategoria(j);
-            List<Categoria> categorias = this.repo.Categorias();
+            List<Categoria> categorias = await this.repo.Categorias();
             return View("Categorias", categorias);
 
 
@@ -110,47 +113,47 @@ namespace RedSocialMinijuegosCore.Controllers
         }
         [HttpPost]
 
-        public ActionResult CreateCategoria(Categoria j)
+        public async Task<ActionResult> CreateCategoria(Categoria j)
         {
 
             this.repo.CrearCategoria(j);
-            List<Categoria> categorias = this.repo.Categorias();
+            List<Categoria> categorias = await this.repo.Categorias();
             return View("Categorias", categorias);
         }
 
-        public ActionResult BorrarCategoria(int id)
+        public async Task<ActionResult> BorrarCategoria(int id)
         {
             this.repo.EliminarCategoria(id);
-            List<Categoria> categorias = this.repo.Categorias();
+            List<Categoria> categorias = await this.repo.Categorias();
             return View("Categorias", categorias);
         }
 
 
 
-        public ActionResult Usuarios()
+        public async Task<ActionResult> Usuarios()
         {
-            List<Usuario> usu = this.repo.GetUsuarios();
+            List<Usuario> usu = await this.repo.GetUsuarios();
 
             return View(usu);
         }
 
-        public ActionResult BorrarUsuarios(int id)
+        public async Task<ActionResult> BorrarUsuarios(int id)
         {
             this.repo.BorrarUsuarios(id);
-            List<Usuario> usu = this.repo.GetUsuarios();
+            List<Usuario> usu = await this.repo.GetUsuarios();
             return View("Usuarios", usu);
         }
-        public ActionResult EditarUsuarios(int id)
+        public async Task<ActionResult> EditarUsuarios(int id)
         {
-            Usuario u = this.repo.BuscarUsuario(id);
+            Usuario u = await this.repo.BuscarUsuario(id);
 
             return View(u);
         }
         [HttpPost]
-        public ActionResult EditarUsuarios(Usuario u)
+        public async Task<ActionResult> EditarUsuarios(Usuario u)
         {
             this.repo.EditarUsuarios(u);
-            List<Usuario> usu = this.repo.GetUsuarios();
+            List<Usuario> usu = await this.repo.GetUsuarios();
             return View("Usuarios", usu);
         }
 
