@@ -213,64 +213,6 @@ new MediaTypeWithQualityHeaderValue("application/json");
             return rankings;
         }
 
-        List<Juego> IRepositoryMinijuegos.BuscarJuegoCategoria(int tipo)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void NuevoUsuario(string usuario, string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EliminarJuego(string nombre)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CrearJuego(Juego juego)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertarPuntuacion(int puntos, string nombre, string token)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Puntuacion(int Puntuacion, string nombre)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void BorrarUsuarios(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EliminarCategoria(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CrearCategoria(Categoria Categoria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarCategoria(Categoria categoria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditarUsuarios(Usuario u)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarJuego(Juego juego)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
