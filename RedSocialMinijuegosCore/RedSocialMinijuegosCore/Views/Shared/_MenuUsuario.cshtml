@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "_menuCliente";
+}
+
+@if (Context.User.Identity.IsAuthenticated)
+{
+    //SU NOMBRE Y CERRAR SESSION
+    <a asp-controller="Validacion" asp-action="CerrarSesion"
+       class="nav-link">Cerrar sesión</a>
+    <img src="~/img/authors/1.jpg" style="width:40px; height: 40px"
+         class="img-thumbnail" />
+    <span style="color:white">@Context.User.Identity.Name</span>
+}
+else
+{
+    //LINK DE LOGIN
+    <a href="@Url.Action("Login", "Validador")">Login /</a>
+    <a href = "@Url.Action("NuevoRegistro", "Validador")"> Register </a> 
+
+
+}

@@ -36,7 +36,8 @@
                 <img src="~/img/logo.png" alt=" logo">
             </a>
             <div class="user-panel">
-                <a href="#">Login</a>  /  <a href="#">Register</a>
+                <partial name="_MenuUsuario" />
+                
             </div>
             <!-- responsive -->
             <div class="nav-switch">
@@ -54,17 +55,41 @@
                            asp-controller="Home">Games</a>
                     </li>
                     <li>
-                        <a asp-action="blog"
-                           asp-controller="Home">Blog</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a asp-action="Index"
+                               asp-controller="RealMadrid"
+                               asp-area="RealMadrid"
+                               class="dropdown-item">Real Madrid</a>
+                            <a asp-action="Donativos"
+                               asp-controller="Home"
+                               class="dropdown-item">Donativos</a>
+                            <a asp-action="Index" class="dropdown-item"
+                               asp-controller="Perfil">Perfil usuario</a>
+                            <a asp-action="MiSesion"
+                               asp-controller="Home"
+                               class="dropdown-item">Session</a>
+                            <a asp-action="Index"
+                               asp-controller="Departamentos"
+                               class="dropdown-item">Departamentos</a>
+                            <a asp-action="Index" class="dropdown-item"
+                               asp-controller="Perfil">Perfil usuario</a>
+                            <a asp-action="About"
+                               asp-controller="Home"
+                               asp-route-usuario="Martes"
+                               class="dropdown-item">About</a>
+                        </div>
                     </li>
                     <li>
-                        <a asp-action="community"
-                           asp-controller="Home">Forums</a>
+                        <a asp-action="Ranking"
+                           asp-controller="Home">Ranking</a>
                     </li>
                     <li>
                         <a asp-action="contact"
-                           asp-controller="Home">Contact</a>
+                           asp-controller="Home">Contacto</a>
                     </li>
+
                 </ul>
             </nav>
         </div>
@@ -201,6 +226,7 @@
     <environment include="Development">
         <!-- Footer section end -->
         <!--====== Javascripts & Jquery ======-->
+        <script src="~/js/popper.min.js"></script>
         <script src="~/js/jquery-3.2.1.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>
         <script src="~/js/owl.carousel.min.js"></script>
@@ -210,7 +236,7 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-    
+
 </body>
 </html>
 

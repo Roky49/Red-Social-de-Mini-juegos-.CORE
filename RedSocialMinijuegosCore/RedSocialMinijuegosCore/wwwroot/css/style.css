@@ -84,6 +84,34 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
+/* formulario de puntuacion*/
+#form label {
+    font-size: 20px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    color: black;
+}
+
+.clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+    color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+    color: orange;
+}
+/*  BURGER MENU
+========================================== */
 
 .section-title {
 	text-align: center;
@@ -1220,7 +1248,7 @@ ol {
 .google-maps {
     position: relative;
     padding-bottom: 75%;
-    // This is the aspect ratio height: 0;
+    
     overflow: hidden;
 }
 

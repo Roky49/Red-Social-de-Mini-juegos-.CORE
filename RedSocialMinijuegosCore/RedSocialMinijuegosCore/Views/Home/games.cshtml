@@ -24,115 +24,48 @@
 <section class="page-section review-page spad">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <div class="review-item">
-                 
-                       <img class="review-cover set-bg" src="~/img/review/5.jpg"  />
-                        <div class="score yellow">9.3</div>
-                   
-                    <div class="review-text">
-                        <h4>Overwatch Halloween</h4>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star is-fade"></i>
+            @foreach (Juego a in Model)
+            {
+                <div class="col-md-6">
+                    <div class="review-item">
+
+                        <img class="review-cover set-bg" src="~/img/Carrusel/@a.Imagen" />
+                        <div class="score yellow">@a.ValoracionTotal</div>
+
+                        <div class="review-text">
+                            <h4>@a.Nombre</h4>
+                            <div class="rating">
+                                <form method="post">
+
+                                    <p class="clasificacion">
+                                        <input hidden type="text" name="nombre" value="@a.Nombre">
+                                        <input id="@a.Nombre+1" type="radio" name="estrellas" value="5" onchange="this.form.submit()">
+
+                                        <label for="@a.Nombre+1">★</label>
+
+                                        <input id="@a.Nombre+2" type="radio" name="estrellas" value="4" onchange="this.form.submit()">
+
+                                        <label for="@a.Nombre+2">★</label>
+
+                                        <input id="@a.Nombre+3" type="radio" name="estrellas" value="3" onchange="this.form.submit()">
+
+                                        <label for="@a.Nombre+3">★</label>
+
+                                        <input id="@a.Nombre+4" type="radio" name="estrellas" value="2" onchange="this.form.submit()">
+
+                                        <label for="@a.Nombre+4">★</label>
+
+                                        <input id="@a.Nombre+5" type="radio" name="estrellas" value="1" onchange="this.form.submit()">
+
+                                        <label for="@a.Nombre+5">★</label>
+                                        <input id="nombre" type="hidden" name="nombre" value="@a.Nombre">
+                                        </form>
+</div>
+                            <p> hay k poner algo mas</p>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame. Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="../img/review/6.jpg">
-                        <div class="score yellow">9.3</div>
-                    </div>
-                    <div class="review-text">
-                        <h4>Grand Theft Auto</h4>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star is-fade"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame. Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="../img/review/7.jpg">
-                        <div class="score yellow">9.3</div>
-                    </div>
-                    <div class="review-text">
-                        <h4>Avatar</h4>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star is-fade"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame. Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="../img/review/8.jpg">
-                        <div class="score yellow">9.3</div>
-                    </div>
-                    <div class="review-text">
-                        <h4>Anthem</h4>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star is-fade"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame. Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="../img/review/9.jpg">
-                        <div class="score yellow">9.3</div>
-                    </div>
-                    <div class="review-text">
-                        <h4>Cyberpunk 2077</h4>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star is-fade"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame. Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="../img/review/10.jpg">
-                        <div class="score yellow">9.3</div>
-                    </div>
-                    <div class="review-text">
-                        <h4>Spiderman</h4>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star is-fade"></i>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame. Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
       
     </div>

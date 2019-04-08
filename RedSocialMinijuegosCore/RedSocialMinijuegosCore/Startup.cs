@@ -35,7 +35,7 @@ namespace RedSocialMinijuegosCore
             services.AddTransient<IRepositoryMinijuegos
                 , RepositoryMinijuegos>();
 
-            services.AddDistributedMemoryCache();
+            
 
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromHours(1);

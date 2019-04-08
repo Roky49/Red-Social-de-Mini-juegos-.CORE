@@ -173,7 +173,7 @@ namespace ApiMinijuegos.Repositories
                     return null;
                 }
                 else
-                {
+                {   
                     return usuario;
                 }
             }
@@ -190,9 +190,9 @@ namespace ApiMinijuegos.Repositories
 
 
 
-        public Usuario BuscarUsuarioEmail(string Email)
+        public Usuario BuscarUsuarioEmail(string email)
         {
-            var consulta = from datos in contex.Usuarios where datos.Email == Email select datos;
+            var consulta = from datos in contex.Usuarios where datos.Email == email select datos;
 
             return consulta.FirstOrDefault();
         }

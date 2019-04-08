@@ -20,7 +20,7 @@ namespace ApiMinijuegos.Repositories
         Usuario ExisteUsuario(string usuario);
         Usuario BuscarUsuario(int idusuario);
         Juego BuscarJuego(String nombre);
-        Usuario BuscarUsuarioEmail(String Email);
+        Usuario BuscarUsuarioEmail(String email);
         Usuario BuscarUsuarioMote(String usuario);
         Usuario ComprobarUsuario(String username
               , String password);

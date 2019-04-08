@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.File;
 
 using Newtonsoft.Json;
@@ -16,26 +17,29 @@ namespace RedSocialMinijuegosCore.Repositories
 {
     public class RepositoryMinijuegos : IRepositoryMinijuegos
     {
-        CloudFileDirectory root;
+        CloudBlobContainer root;
         private String uriapi;
         private MediaTypeWithQualityHeaderValue headerjson;
 
         public RepositoryMinijuegos()
         {
-            this.uriapi = "https://localhost:44394/";
+            this.uriapi = "https://localhost:44344/";
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
-            String keys =
-                CloudConfigurationManager.GetSetting("cuentastorage");
-            CloudStorageAccount account =
-                CloudStorageAccount.Parse(keys);
-            CloudFileClient client =
-                account.CreateCloudFileClient();
-            CloudFileShare shared = 
-                client.GetShareReference("sharedtajamar");
-            this.root = shared.GetRootDirectoryReference();
+            /*String keys =*/
+
+            //this.root = GetCloudBlobContainer();
 
         }
+
+        //private CloudBlobContainer GetCloudBlobContainer()
+        //{
+        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+        //            CloudConfigurationManager.GetSetting("cuentastorage"));
+        //    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+        //    CloudBlobContainer container = blobClient.GetContainerReference("sharedtajamar");
+        //    return container;
+        //}
 
         public async Task<String> GetToken(String usuario
             , String password)
@@ -100,13 +104,13 @@ new MediaTypeWithQualityHeaderValue("application/json");
             }
         }
 
-        public void UploadFile(String nombre, Stream stream)
-        {
-            //NECESITAMOS UNA REFERENCIA AL FILE
-            CloudFile file =
-                this.root.GetFileReference(nombre);
-            file.UploadFromStreamAsync(stream);
-        }
+        //public void UploadFile(String nombre, Stream stream)
+        //{
+        //    //NECESITAMOS UNA REFERENCIA AL FILE
+        //    CloudFile file =
+        //        this.root.GetFileReference(nombre);
+        //    file.UploadFromStreamAsync(stream);
+        //}
 
         public async Task<List<Juego>> GetJuegos()
         {
@@ -213,6 +217,69 @@ new MediaTypeWithQualityHeaderValue("application/json");
             return rankings;
         }
 
+        List<Juego> IRepositoryMinijuegos.BuscarJuegoCategoria(int tipo)
+        {
+            throw new NotImplementedException();
+        }
 
+        public void NuevoUsuario(string usuario, string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EliminarJuego(string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CrearJuego(Juego juego)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertarPuntuacion(int puntos, string nombre, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Puntuacion(int Puntuacion, string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BorrarUsuarios(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EliminarCategoria(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CrearCategoria(Categoria Categoria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ModificarCategoria(Categoria categoria)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditarUsuarios(Usuario u)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ModificarJuego(Juego juego)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UploadFile(string nombre, Stream stream)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

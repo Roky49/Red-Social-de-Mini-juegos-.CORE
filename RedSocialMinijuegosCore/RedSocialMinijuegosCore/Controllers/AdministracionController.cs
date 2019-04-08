@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using RedSocialMinijuegosCore.Models;
+using RedSocialMinijuegosCore.Providers;
 using RedSocialMinijuegosCore.Repositories;
 
 namespace RedSocialMinijuegosCore.Controllers
@@ -14,10 +15,13 @@ namespace RedSocialMinijuegosCore.Controllers
     //[AutorizacionUsuarios(Roles = "Admin")]
     public class AdministracionController : Controller
     {
+        PathProvider pathprovider;
+
         IRepositoryMinijuegos repo;
-        public AdministracionController(IRepositoryMinijuegos repo)
+        public AdministracionController(IRepositoryMinijuegos repo, PathProvider pathprovider)
         {
             this.repo = repo;
+            this.pathprovider = pathprovider;
         }
 
         // GET: Administracion
@@ -30,30 +34,42 @@ namespace RedSocialMinijuegosCore.Controllers
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
-        //public async Task<ActionResult> EditJuegos(String id)
-        //{
-        //    Juego j = await this.repo.BuscarJuego(id);
+        public async Task<ActionResult> EditJuegos(String id)
+        {
+            Juego j = await this.repo.BuscarJuego(id, null);
 
-        //    return View(j);
-        //}
-        //[HttpPost]
+            return View(j);
+        }
+        [HttpPost]
 
-        //public async Task<ActionResult> EditJuegos(Juego j, HttpPostedFileBase imagen)
-        //{
+        public async Task<ActionResult> EditJuegos(Juego j, IFormFile imagen)
+        {
 
-        //    if (imagen != null)
-        //    {
+            String filename = imagen.FileName;
+            String path = this.pathprovider.MapPath(filename, Folders.Uploads);
+            if (filename.EndsWith("jpg"))
+            {
+                path = this.pathprovider.MapPath(filename, Folders.Images);
+            }
+
+            //String path =
+            //    Path.Combine(rootpath, "uploads" , filename);
+            //RENOMBRAR FICHERO
+            //System.IO.File.Move("old", "new");
+            //SUBIMOS EL FICHERO A DICHA RUTA, SE REALIZA CON
+            //STREAM
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await imagen.CopyToAsync(stream);
+            }
+            ViewData["MENSAJE"] = "Ruta: "
+                + path;
+            this.repo.ModificarJuego(j);
+            List<Juego> juegos = await this.repo.GetJuegos();
+            return View("Juegos", juegos);
 
 
-        //        imagen.SaveAs(Server.MapPath("~/Imagenes/" + imagen.FileName));
-        //    }
-
-        //    this.repo.ModificarJuego(j);
-        //    List<Juego> juegos = this.repo.GetJuegos();
-        //    return View("Juegos", juegos);
-
-
-        //}
+        }
         public async Task<ActionResult> CreateJuegos()
         {
             ViewBag.cate = await this.repo.Categorias();
@@ -63,10 +79,23 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public async Task<ActionResult> CreateJuegos(Juego j, IFormFile imagen)
         {
-          
-            Stream stream = imagen.OpenReadStream();
-            String nombre = imagen.FileName;
-            this.repo.UploadFile(nombre, stream);
+            String filename = imagen.FileName;
+            String path = this.pathprovider.MapPath(filename, Folders.Uploads);
+            if (filename.EndsWith("jpg"))
+            {
+                path = this.pathprovider.MapPath(filename, Folders.Images);
+            }
+
+            //String path =
+            //    Path.Combine(rootpath, "uploads" , filename);
+            //RENOMBRAR FICHERO
+            //System.IO.File.Move("old", "new");
+            //SUBIMOS EL FICHERO A DICHA RUTA, SE REALIZA CON
+            //STREAM
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await imagen.CopyToAsync(stream);
+            }
             ViewBag.Mensaje = "Fichero subido";
             
            

@@ -99,7 +99,7 @@ namespace RedSocialMinijuegosCore.Controllers
 
 
        
-        public async Task<ActionResult> _categorias()
+        public async Task<ActionResult> Categorias()
         {
             List<Categoria> categoria = await this.repo.Categorias();
             return PartialView(categoria);
@@ -160,5 +160,7 @@ namespace RedSocialMinijuegosCore.Controllers
 
             
         }
+       
+
     }
 }

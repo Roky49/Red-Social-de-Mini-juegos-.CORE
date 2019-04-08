@@ -1,4 +1,5 @@
 ﻿
+@model List<Juego>
 @{
     ViewData["Title"] = "index";
 }
@@ -6,28 +7,21 @@
 <!-- Hero section -->
 <section class="hero-section">
     <div class="hero-slider owl-carousel">
-        <div class="hs-item set-bg" data-setbg="img/slider-1.jpg">
-            <div class="hs-text">
-                <div class="container">
-                    <h2>The Best <span>Games</span> Out There</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada <br> lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. <br>Suspendisse cursus faucibus finibus.</p>
-                    <a href="#" class="site-btn">Read More</a>
+        @foreach (Juego j in Model)
+        {
+            <div class="hs-item set-bg" data-setbg="img/Carrusel/@j.Imagen">
+                <div class="hs-text">
+                    <div class="container">
+                        <h2><span>@j.Nombre</span> </h2>
+                        <a href="@Url.Action("Index", "Juegos", new { nombre = j.Nombre })" class="site-btn">Jugar</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hs-item set-bg" data-setbg="img/slider-2.jpg">
-            <div class="hs-text">
-                <div class="container">
-                    <h2>The Best <span>Games</span> Out There</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada <br> lorem maximus mauris scelerisque, at rutrum nulla dictum. Ut ac ligula sapien. <br>Suspendisse cursus faucibus finibus.</p>
-                    <a href="#" class="site-btn">Read More</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </section>
 <!-- Hero section end -->
-<!-- Latest news section -->
+<!-- Meter los jugador -->
 <div class="latest-news-section">
     <div class="ln-title">Latest News</div>
     <div class="news-ticker">
@@ -40,7 +34,7 @@
 </div>
 <!-- Latest news section end -->
 <!-- Feature section -->
-<section class="feature-section spad">
+@*<section class="feature-section spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6 p-0">
@@ -53,42 +47,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 p-0">
-                <div class="feature-item set-bg" data-setbg="img/features/2.jpg">
-                    <span class="cata strategy">strategy</span>
-                    <div class="fi-content text-white">
-                        <h5><a href="#">Justo tempor, rutrum erat id, molestie</a></h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                        <a href="#" class="fi-comment">3 Comments</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 p-0">
-                <div class="feature-item set-bg" data-setbg="img/features/3.jpg">
-                    <span class="cata new">new</span>
-                    <div class="fi-content text-white">
-                        <h5><a href="#">Nullam lacinia ex eleifend orci porttitor</a></h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                        <a href="#" class="fi-comment">3 Comments</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 p-0">
-                <div class="feature-item set-bg" data-setbg="img/features/4.jpg">
-                    <span class="cata racing">racing</span>
-                    <div class="fi-content text-white">
-                        <h5><a href="#">Lacinia ex eleifend orci suscipit</a></h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                        <a href="#" class="fi-comment">3 Comments</a>
-                    </div>
-                </div>
-            </div>
+          
         </div>
     </div>
-</section>
+</section>*@
 <!-- Feature section end -->
 <!-- Recent game section  -->
-<section class="recent-game-section spad set-bg" data-setbg="img/recent-game-bg.png">
+@*<section class="recent-game-section spad set-bg" data-setbg="img/recent-game-bg.png">
     <div class="container">
         <div class="section-title">
             <div class="cata new">new</div>
@@ -145,9 +110,9 @@
             </div>
         </div>
     </div>
-</section>
-<!-- Recent game section end -->
-<!-- Tournaments section -->
+</section>*@
+
+<!-- Hacer un rss a torneos de cualquier pagina -->
 <section class="tournaments-section spad">
     <div class="container">
         <div class="tournament-title">Tournaments</div>
@@ -197,53 +162,22 @@
     <div class="container">
         <div class="section-title">
             <div class="cata new">new</div>
-            <h2>Recent Reviews</h2>
+            <h2>Mas Jugados</h2>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="img/review/1.jpg">
-                        <div class="score yellow">9.3</div>
-                    </div>
-                    <div class="review-text">
-                        <h5>Assasin’’s Creed</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="img/review/2.jpg">
-                        <div class="score purple">9.5</div>
-                    </div>
-                    <div class="review-text">
-                        <h5>Doom</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
+            @foreach (Juego a in Model)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="review-item">
+                        <div class="review-cover set-bg" data-setbg="img/Carrusel/@a.Imagen">
+                            <div class="score yellow">@a.ValoracionTotal</div>
+                        </div>
+                        <div class="review-text">
+                            <h5>@a.Nombre</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="img/review/3.jpg">
-                        <div class="score green">9.1</div>
-                    </div>
-                    <div class="review-text">
-                        <h5>Overwatch</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="review-item">
-                    <div class="review-cover set-bg" data-setbg="img/review/4.jpg">
-                        <div class="score pink">9.7</div>
-                    </div>
-                    <div class="review-text">
-                        <h5>GTA</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisc ing ipsum dolor sit ame.</p>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>

@@ -49,15 +49,15 @@ namespace ApiMinijuegos.Controllers
 
                 //GENERAMOS EL TOKEN CON LA INFORMACION
                 JwtSecurityToken token = new JwtSecurityToken
-                (
-                    issuer: configuration["ApiAuth:Issuer"],
-                    audience: configuration["ApiAuth:Audience"],
-                    claims: claims,
-                    expires: DateTime.UtcNow.AddMinutes(10),
-                    notBefore: DateTime.UtcNow,
-                    signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["ApiAuth:SecretKey"])),
-                    SecurityAlgorithms.HmacSha256)
-                );
+                 (
+                     issuer: configuration["ApiAuth:Issuer"],
+                     audience: configuration["ApiAuth:Audience"],
+                     claims: claims,
+                     expires: DateTime.UtcNow.AddMinutes(30),
+                     notBefore: DateTime.UtcNow,
+                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["ApiAuth:SecretKey"])),
+                     SecurityAlgorithms.HmacSha256)
+                 );
 
                 // Devolvemos el token en la respuesta
                 return Ok(
