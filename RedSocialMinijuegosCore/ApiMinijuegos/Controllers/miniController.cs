@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ApiMinijuegos.Model;
 using ApiMinijuegos.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ApiMinijuegos.Controllers
 {
@@ -193,11 +195,13 @@ namespace ApiMinijuegos.Controllers
         }
 
         [HttpPost]
-        [Route("[action]/{puntos}/{nombre}")]
+        [Route("[action]/{puntos}/{nombre}/{id}")]
         //api/mini/InsertarPuntuacion/100/prubea
-        public void InsertarPuntuacion(int puntos, String nombre)
+        public void InsertarPuntuacion(int puntos, String nombre,int id)
         {
-            this.repo.InsertarPuntuacion(puntos, nombre);
+           
+           
+            this.repo.InsertarPuntuacion(puntos, nombre,id);
         }
 
         [HttpDelete]

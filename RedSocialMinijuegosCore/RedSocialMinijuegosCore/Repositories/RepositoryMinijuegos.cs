@@ -24,7 +24,9 @@ namespace RedSocialMinijuegosCore.Repositories
 
         public RepositoryMinijuegos()
         {
+            
             this.uriapi = "http://localhost:49885/";
+            //https://apiminijuegosrbc.azurewebsites.net/
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
             /*String keys =*/
@@ -120,10 +122,10 @@ new MediaTypeWithQualityHeaderValue("application/json");
             return juegos;
         }
 
-        public async Task<List<Categoria>> Categorias()
+        public async  Task<List<Categoria>> Categorias()
         {
             List<Categoria> categorias = await
-               this.CallApi<List<Categoria>>("api/mini/Categorias", null);
+               this.CallApi<List<Categoria>>("api/mini/GetCategoria", null);
             return categorias;
         }
 
@@ -218,10 +220,7 @@ new MediaTypeWithQualityHeaderValue("application/json");
             return rankings;
         }
 
-        List<Juego> IRepositoryMinijuegos.BuscarJuegoCategoria(int tipo)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public void UploadFile(string nombre, Stream stream)
         {
@@ -292,11 +291,12 @@ new MediaTypeWithQualityHeaderValue("application/json");
             }
         }
 
-        public async Task InsertarPuntuacion(int puntos, string nombre, string token)
+        public async Task InsertarPuntuacion(int puntos, string nombre,int id, string token)
         {
             using (HttpClient client = new HttpClient())
             {
-                String peticion = "api/mini/InsertarPuntuacion/" + puntos + "/" + nombre;
+                
+                String peticion = "api/mini/InsertarPuntuacion/" + puntos + "/" + nombre+"/"+id;
                 Juego cli = new Juego();
                 
                 client.BaseAddress = new Uri(uriapi);

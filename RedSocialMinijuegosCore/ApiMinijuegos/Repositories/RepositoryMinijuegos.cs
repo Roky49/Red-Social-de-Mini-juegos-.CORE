@@ -1,8 +1,11 @@
 ﻿using ApiMinijuegos.Data;
 using ApiMinijuegos.Model;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ApiMinijuegos.Repositories
@@ -205,13 +208,14 @@ namespace ApiMinijuegos.Repositories
         }
 
 
-        public void InsertarPuntuacion(int puntos, string nombre)
+        public void InsertarPuntuacion(int puntos, string nombre, int id)
         {
             Partida nepartida = new Partida();
             nepartida.NombreJuego = nombre;
             nepartida.Puntuacion = puntos;
-           // String id = HttpContext.Current.User.Identity.Name;
-           // nepartida.idUsuario = (this.BuscarUsuarioMote(id)).IdUsuario;
+           
+            nepartida.IdUsuario = id; 
+          
             nepartida.Fecha = DateTime.Now;
 
             var ultimonumero = contex.Partidas.OrderByDescending(i => i.IdPartida).FirstOrDefault();

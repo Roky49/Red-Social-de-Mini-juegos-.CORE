@@ -1,0 +1,109 @@
+﻿
+
+@if (Context.User.IsInRole("Admin") == true)
+{
+
+
+    <ul>
+        <li>
+            <a asp-action="index"
+               asp-controller="Home">Home</a>
+        </li>
+        <li>
+            <a asp-action="games"
+               asp-controller="Home">Juegos</a>
+        </li>
+        <li>
+            <a asp-action="Chat"
+               asp-controller="Juegos">Chat</a>
+        </li>
+        <li>
+
+
+            @await Component.InvokeAsync("Categorias")
+
+        </li>
+        <li>
+            <a asp-action="Ranking"
+               asp-controller="Home">Ranking</a>
+        </li>
+        <li>
+            <a asp-action="contact"
+               asp-controller="Home">Contacto</a>
+        </li>
+        <li>
+            <a asp-action="Index"
+               asp-controller="Administracion">Administracion</a>
+        </li>
+
+    </ul>
+
+}
+else if (Context.User.IsInRole("User") == true)
+{
+
+
+
+
+    <ul>
+        <li>
+            <a asp-action="index"
+               asp-controller="Home">Home</a>
+        </li>
+        <li>
+            <a asp-action="games"
+               asp-controller="Juegos">Juegos</a>
+        </li>
+        <li>
+            <a asp-action="Chat"
+               asp-controller="Juegos">Chat</a>
+        </li>
+        <li>
+
+
+            @await Component.InvokeAsync("Categorias")
+
+        </li>
+        <li>
+            <a asp-action="Ranking"
+               asp-controller="Home">Ranking</a>
+        </li>
+        <li>
+            <a asp-action="contact"
+               asp-controller="Home">Contacto</a>
+        </li>
+
+    </ul>
+
+
+}
+else
+{
+
+    <ul>
+        <li>
+            <a asp-action="index"
+               asp-controller="Home">Home</a>
+        </li>
+        <li>
+            <a asp-action="games"
+               asp-controller="Home">Juegos</a>
+        </li>
+        <li>
+
+
+            @*@await Component.InvokeAsync("Categorias")*@
+
+        </li>
+        <li>
+            <a asp-action="Ranking"
+               asp-controller="Home">Ranking</a>
+        </li>
+        <li>
+            <a asp-action="contact"
+               asp-controller="Home">Contacto</a>
+        </li>
+
+    </ul>
+
+}

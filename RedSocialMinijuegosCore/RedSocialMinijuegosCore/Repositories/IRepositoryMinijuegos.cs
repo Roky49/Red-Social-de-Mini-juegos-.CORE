@@ -16,7 +16,7 @@ namespace RedSocialMinijuegosCore.Repositories
         Task<List<Usuario>> GetUsuarios();
         Task<List<string>> Nombrejuego();
         Task<Categoria> BuscarCategoria(int id);
-        List<Juego> BuscarJuegoCategoria(int tipo);
+        Task<List<Juego>> BuscarJuegoCategoria(int tipo);
         Task<Usuario> ExisteUsuario(string usuario);
         Task<Usuario> BuscarUsuario(int idusuario);
         Task<Juego> BuscarJuego(String nombre, String token);
@@ -33,7 +33,7 @@ namespace RedSocialMinijuegosCore.Repositories
         Task NuevoUsuario(String usuario, String email, String password);
         Task EliminarJuego(String nombre, String token);
         Task CrearJuego(Juego juego, String token);
-        Task InsertarPuntuacion(int puntos, String nombre,String token);
+        Task InsertarPuntuacion(int puntos, String nombre,int id,String token);
         Task Puntuacion(int Puntuacion, String nombre, String token);
         Task BorrarUsuarios(int id, String token);
         Task EliminarCategoria(int id, String token);

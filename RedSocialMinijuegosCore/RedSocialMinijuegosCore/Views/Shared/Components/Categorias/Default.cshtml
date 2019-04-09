@@ -1,0 +1,18 @@
+﻿@using RedSocialMinijuegosCore.Models
+@model List<Categoria>
+
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">Categorias</a>
+    <div class="dropdown-menu" aria-labelledby="dropdown01">
+        @foreach (Categoria j in Model)
+        {
+
+            @*<a asp-action="games" asp-controller="Home" asp-route="@j.IdCategoria">@j.Nombre</a>*@
+            @Html.ActionLink(j.Nombre, "games", "Home", new { id = j.IdCategoria }, null)
+
+        }
+
+    </div>
+</li>

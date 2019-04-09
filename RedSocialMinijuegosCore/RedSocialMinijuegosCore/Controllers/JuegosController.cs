@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,8 @@ namespace RedSocialMinijuegosCore.Controllers
         public async Task<ActionResult> Index(int puntos, String nombre)
         {
             String token = HttpContext.Session.GetString("TOKEN");
-           this.repo.InsertarPuntuacion(puntos, nombre,token);
+            int id = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            this.repo.InsertarPuntuacion(puntos, nombre, id, token);
             Juego j = await this.repo.BuscarJuego(nombre,token);
             return View(j);
 

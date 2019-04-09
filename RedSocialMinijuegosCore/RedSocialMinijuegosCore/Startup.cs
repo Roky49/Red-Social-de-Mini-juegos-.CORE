@@ -10,7 +10,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RedSocialMinijuegosCore.Hubs;
+using RedSocialMinijuegosCore.Providers;
 using RedSocialMinijuegosCore.Repositories;
+
 
 namespace RedSocialMinijuegosCore
 {
@@ -34,8 +37,9 @@ namespace RedSocialMinijuegosCore
 
             services.AddTransient<IRepositoryMinijuegos
                 , RepositoryMinijuegos>();
+            services.AddTransient<PathProvider>();
 
-            
+            services.AddSignalR();
 
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromHours(1);
@@ -69,7 +73,11 @@ namespace RedSocialMinijuegosCore
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseCookiePolicy();
+
+            app.UseSignalR(x => x.MapHub<ChatHub>("/chatHub"));
+
             app.UseAuthentication();
             app.UseSession();
             app.UseMvc(routes =>

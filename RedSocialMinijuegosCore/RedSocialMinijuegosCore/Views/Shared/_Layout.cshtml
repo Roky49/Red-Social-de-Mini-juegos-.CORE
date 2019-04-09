@@ -1,8 +1,4 @@
-﻿@using RedSocialMinijuegosCore.Models
-@{ 
-    List<Categoria> categorias = ViewBag.ca as List<Categoria>;
-
-}
+﻿
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -52,33 +48,7 @@
             </div>
             <!-- site menu -->
             <nav class="main-menu">
-                <ul>
-                    <li>
-                        <a asp-action="index"
-                           asp-controller="Home">Home</a>
-                    </li>
-                    <li>
-                        <a asp-action="games"
-                           asp-controller="Home">Games</a>
-                    </li>
-                    <li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-
-                            @await Html.PartialAsync("_Categorias", categorias)
-                        </div>
-                    </li>
-                    <li>
-                        <a asp-action="Ranking"
-                           asp-controller="Home">Ranking</a>
-                    </li>
-                    <li>
-                        <a asp-action="contact"
-                           asp-controller="Home">Contacto</a>
-                    </li>
-
-                </ul>
+                <partial name="Navegacion" />
             </nav>
         </div>
     </header>

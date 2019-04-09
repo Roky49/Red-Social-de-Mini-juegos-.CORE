@@ -25,7 +25,7 @@ namespace RedSocialMinijuegosCore.Filter
                     new RouteValueDictionary(
                         new
                         {
-                            controller = "Validacion"
+                            controller = "Validador"
                             ,
                             action = "Login"
                         });

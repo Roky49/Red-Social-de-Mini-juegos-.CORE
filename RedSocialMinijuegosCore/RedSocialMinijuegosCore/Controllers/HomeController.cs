@@ -18,8 +18,7 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public async Task<IActionResult> index()
         {
-            List<Categoria> categoria = await this.repo.Categorias();
-            ViewBag.ca = categoria;
+          
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
@@ -51,7 +50,7 @@ namespace RedSocialMinijuegosCore.Controllers
 
             if (id != null)
             {
-                List<Juego> j = this.repo.BuscarJuegoCategoria((int)id);
+                List<Juego> j = await this.repo.BuscarJuegoCategoria((int)id);
                 return View(j);
             }
             else
@@ -74,7 +73,7 @@ namespace RedSocialMinijuegosCore.Controllers
 
             if (id != null)
             {
-                List<Juego> j = this.repo.BuscarJuegoCategoria((int)id);
+                List<Juego> j = await this.repo.BuscarJuegoCategoria((int)id);
                 return View(j);
             }
             else
@@ -104,13 +103,13 @@ namespace RedSocialMinijuegosCore.Controllers
 
 
        
-        public async Task<ActionResult> _Categorias()
-        {
-            List<Categoria> categoria = await this.repo.Categorias();
-            return PartialView(categoria);
+        //public async Task<ActionResult> _Categorias()
+        //{
+        //    List<Categoria> categoria = await this.repo.Categorias();
+        //    return PartialView(categoria);
             
 
-        }
+        //}
 
         //public ActionResult _Navegacion()
         //{

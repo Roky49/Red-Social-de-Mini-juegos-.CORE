@@ -6,14 +6,14 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using RedSocialMinijuegosCore.Filter;
 using RedSocialMinijuegosCore.Models;
 using RedSocialMinijuegosCore.Providers;
 using RedSocialMinijuegosCore.Repositories;
 
 namespace RedSocialMinijuegosCore.Controllers
 {
-    //[AutorizacionUsuarios(Roles = "Admin")]
+    [UsuarioAuthorizeAttribute(Roles = "Admin")]
     public class AdministracionController : Controller
     {
         PathProvider pathprovider;

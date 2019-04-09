@@ -33,7 +33,7 @@ namespace ApiMinijuegos.Repositories
         void NuevoUsuario(String usuario, String email, String password);
         void EliminarJuego(String nombre);
         void CrearJuego(Juego juego);
-        void InsertarPuntuacion(int puntos, String nombre);
+        void InsertarPuntuacion(int puntos, String nombre,int id);
         void Puntuacion(int Puntuacion, String nombre);
         void BorrarUsuarios(int id);
         void EliminarCategoria(int id);
