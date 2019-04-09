@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace ApiMinijuegos.Model
         [Column("Email")]
         public string Email { get; set; }
         [Column("PassWord")]
+        //[JsonIgnoreAttribute]
         public byte[] PassWord { get; set; }
         [Column("Gemas")]
         public int Gemas { get; set; }

@@ -185,6 +185,14 @@ namespace ApiMinijuegos.Controllers
         }
 
         [HttpPost]
+        [Route("[action]")]
+        //api/mini/puntuacion  
+        public void puntuacion(int Puntuacion, string nombre)
+        {
+            this.repo.Puntuacion(Puntuacion,nombre);
+        }
+
+        [HttpPost]
         [Route("[action]/{puntos}/{nombre}")]
         //api/mini/InsertarPuntuacion/100/prubea
         public void InsertarPuntuacion(int puntos, String nombre)

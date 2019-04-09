@@ -66,6 +66,7 @@ namespace RedSocialMinijuegosCore.Controllers
                 //DEBEMOS ALMACENAR EL TOKEN EN SESSION PARA PODER REUTILIZARLO
                 //EN OTROS METODOS DE LA APP
                 HttpContext.Session.SetString("TOKEN", token);
+
                 //REDIRECCIONAMOS A UNA PAGINA DE INICIO PROTEGIDA
                 return RedirectToAction("Index", "Home");
             }

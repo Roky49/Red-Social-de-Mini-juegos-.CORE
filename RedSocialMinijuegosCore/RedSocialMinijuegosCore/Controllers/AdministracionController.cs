@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,7 +65,8 @@ namespace RedSocialMinijuegosCore.Controllers
             }
             ViewData["MENSAJE"] = "Ruta: "
                 + path;
-            this.repo.ModificarJuego(j);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.ModificarJuego(j,t);
             List<Juego> juegos = await this.repo.GetJuegos();
             return View("Juegos", juegos);
 
@@ -97,16 +99,17 @@ namespace RedSocialMinijuegosCore.Controllers
                 await imagen.CopyToAsync(stream);
             }
             ViewBag.Mensaje = "Fichero subido";
-            
-           
-            this.repo.CrearJuego(j);
+
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.CrearJuego(j,t);
             List<Juego> juegos = await this.repo.GetJuegos();
             return View("Juegos", juegos);
         }
 
         public async Task<ActionResult> BorrarJuegos(String id)
         {
-            this.repo.EliminarJuego(id);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await   this.repo.EliminarJuego(id,t);
             List<Juego> juegos = await this.repo.GetJuegos();
             return View("Juegos", juegos);
         }
@@ -128,8 +131,8 @@ namespace RedSocialMinijuegosCore.Controllers
         public async Task<ActionResult> EditCategoria(Categoria j)
         {
 
-
-            this.repo.ModificarCategoria(j);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.ModificarCategoria(j,t);
             List<Categoria> categorias = await this.repo.Categorias();
             return View("Categorias", categorias);
 
@@ -144,15 +147,16 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public async Task<ActionResult> CreateCategoria(Categoria j)
         {
-
-            this.repo.CrearCategoria(j);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.CrearCategoria(j,t);
             List<Categoria> categorias = await this.repo.Categorias();
             return View("Categorias", categorias);
         }
 
         public async Task<ActionResult> BorrarCategoria(int id)
         {
-            this.repo.EliminarCategoria(id);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.EliminarCategoria(id,t);
             List<Categoria> categorias = await this.repo.Categorias();
             return View("Categorias", categorias);
         }
@@ -168,7 +172,8 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public async Task<ActionResult> BorrarUsuarios(int id)
         {
-            this.repo.BorrarUsuarios(id);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+             await this.repo.BorrarUsuarios(id,t);
             List<Usuario> usu = await this.repo.GetUsuarios();
             return View("Usuarios", usu);
         }
@@ -181,7 +186,8 @@ namespace RedSocialMinijuegosCore.Controllers
         [HttpPost]
         public async Task<ActionResult> EditarUsuarios(Usuario u)
         {
-            this.repo.EditarUsuarios(u);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.EditarUsuarios(u,t);
             List<Usuario> usu = await this.repo.GetUsuarios();
             return View("Usuarios", usu);
         }

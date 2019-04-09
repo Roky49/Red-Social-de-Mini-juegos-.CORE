@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RedSocialMinijuegosCore.Repositories
@@ -23,7 +24,7 @@ namespace RedSocialMinijuegosCore.Repositories
 
         public RepositoryMinijuegos()
         {
-            this.uriapi = "https://localhost:44344/";
+            this.uriapi = "http://localhost:49885/";
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
             /*String keys =*/
@@ -222,62 +223,141 @@ new MediaTypeWithQualityHeaderValue("application/json");
             throw new NotImplementedException();
         }
 
-        public void NuevoUsuario(string usuario, string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EliminarJuego(string nombre)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CrearJuego(Juego juego)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertarPuntuacion(int puntos, string nombre, string token)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Puntuacion(int Puntuacion, string nombre)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void BorrarUsuarios(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EliminarCategoria(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CrearCategoria(Categoria Categoria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarCategoria(Categoria categoria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditarUsuarios(Usuario u)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ModificarJuego(Juego juego)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UploadFile(string nombre, Stream stream)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task NuevoUsuario(string usuario, string email, string password)
+        {
+             
+
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/NuevoUsuario/" + usuario + "/" + email + "/" + password;
+                Usuario cli = new Usuario();
+
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PostAsync(peticion, content);
+            }
+        }
+
+        public async Task EliminarJuego(string nombre,String token)
+        {
+            
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/EliminarJuego/" + nombre;
+               
+
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                HttpResponseMessage message = await client.DeleteAsync(peticion);
+            }
+
+        }
+
+        public async Task CrearJuego(Juego juego, String token)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/CrearJuego";
+                Juego cli = new Juego();
+                cli.Nombre = juego.Nombre;
+
+                cli.Html = juego.Html;
+                cli.Css = juego.Css;
+                cli.Imagen = juego.Imagen;
+                cli.Nveces = 5;
+                cli.Valoracion = 5;
+                cli.ValoracionTotal = 5;
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PostAsync(peticion, content);
+            }
+        }
+
+        public async Task InsertarPuntuacion(int puntos, string nombre, string token)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/InsertarPuntuacion/" + puntos + "/" + nombre;
+                Juego cli = new Juego();
+                
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PostAsync(peticion, content);
+            }
+
+
+            
+        }
+
+        public async Task Puntuacion(int Puntuacion, string nombre,String token)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/puntuacion/" + Puntuacion + "/" + nombre;
+                Juego cli = new Juego();
+
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+               
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PostAsync(peticion, content);
+            }
+        }
+
+        public Task BorrarUsuarios(int id, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EliminarCategoria(int id, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CrearCategoria(Categoria Categoria, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ModificarCategoria(Categoria categoria, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task EditarUsuarios(Usuario u, string token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ModificarJuego(Juego juego, string token)
         {
             throw new NotImplementedException();
         }

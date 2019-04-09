@@ -264,6 +264,8 @@ namespace ApiMinijuegos.Repositories
             this.contex.SaveChanges();
         }
 
+
+
         public void ModificarCategoria(Categoria categoria)
         {
             Categoria j = this.BuscarCategoria(categoria.IdCategoria);

@@ -30,16 +30,16 @@ namespace RedSocialMinijuegosCore.Repositories
         Task<List<Ranking>> GetTodos(Int64 clave, int totalregistros);
 
         Task<List<Ranking>> GetTodosJuego(Int64 clave, int totalregistros, String juego);
-        void NuevoUsuario(String usuario, String email, String password);
-        void EliminarJuego(String nombre);
-        void CrearJuego(Juego juego);
-        void InsertarPuntuacion(int puntos, String nombre,String token);
-        void Puntuacion(int Puntuacion, String nombre);
-        void BorrarUsuarios(int id);
-        void EliminarCategoria(int id);
-        void CrearCategoria(Categoria Categoria);
-        void ModificarCategoria(Categoria categoria);
-        void EditarUsuarios(Usuario u);
-        void ModificarJuego(Juego juego);
+        Task NuevoUsuario(String usuario, String email, String password);
+        Task EliminarJuego(String nombre, String token);
+        Task CrearJuego(Juego juego, String token);
+        Task InsertarPuntuacion(int puntos, String nombre,String token);
+        Task Puntuacion(int Puntuacion, String nombre, String token);
+        Task BorrarUsuarios(int id, String token);
+        Task EliminarCategoria(int id, String token);
+        Task CrearCategoria(Categoria Categoria, String token);
+        Task ModificarCategoria(Categoria categoria, String token);
+        Task EditarUsuarios(Usuario u, String token);
+        Task ModificarJuego(Juego juego, String token);
     }
 }

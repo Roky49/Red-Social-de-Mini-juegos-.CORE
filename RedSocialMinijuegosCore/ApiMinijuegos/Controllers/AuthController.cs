@@ -38,6 +38,8 @@ namespace ApiMinijuegos.Controllers
             Usuario user =
                 this.repo.ComprobarUsuario(model.UserName
                 , model.Password);
+         
+            
             if (user != null)
             {
                 //ESTA ES LA INFORMACION QUE VAMOS A INCLUIR EN 

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using RedSocialMinijuegosCore.Models
+@{ 
+    List<Categoria> categorias = ViewBag.ca as List<Categoria>;
+
+}
+<!DOCTYPE html>
 <html lang="zxx">
 <head>
     <title>RedSocialMinijuegosCore</title>
@@ -37,7 +42,9 @@
             </a>
             <div class="user-panel">
                 <partial name="_MenuUsuario" />
-                
+
+
+
             </div>
             <!-- responsive -->
             <div class="nav-switch">
@@ -58,27 +65,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a asp-action="Index"
-                               asp-controller="RealMadrid"
-                               asp-area="RealMadrid"
-                               class="dropdown-item">Real Madrid</a>
-                            <a asp-action="Donativos"
-                               asp-controller="Home"
-                               class="dropdown-item">Donativos</a>
-                            <a asp-action="Index" class="dropdown-item"
-                               asp-controller="Perfil">Perfil usuario</a>
-                            <a asp-action="MiSesion"
-                               asp-controller="Home"
-                               class="dropdown-item">Session</a>
-                            <a asp-action="Index"
-                               asp-controller="Departamentos"
-                               class="dropdown-item">Departamentos</a>
-                            <a asp-action="Index" class="dropdown-item"
-                               asp-controller="Perfil">Perfil usuario</a>
-                            <a asp-action="About"
-                               asp-controller="Home"
-                               asp-route-usuario="Martes"
-                               class="dropdown-item">About</a>
+
+                            @await Html.PartialAsync("_Categorias", categorias)
                         </div>
                     </li>
                     <li>
@@ -96,7 +84,7 @@
     </header>
     <!-- Header section end -->
 
-
+  
 
 
     @RenderBody()

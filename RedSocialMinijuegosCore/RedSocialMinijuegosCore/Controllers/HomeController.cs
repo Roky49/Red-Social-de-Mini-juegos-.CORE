@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RedSocialMinijuegosCore.Models;
@@ -17,13 +18,16 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public async Task<IActionResult> index()
         {
+            List<Categoria> categoria = await this.repo.Categorias();
+            ViewBag.ca = categoria;
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
         [HttpPost]
         public async Task<ActionResult> index(int estrellas, String nombre)
         {
-            this.repo.Puntuacion(estrellas, nombre);
+            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+            await this.repo.Puntuacion(estrellas, nombre,t);
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
@@ -64,7 +68,8 @@ namespace RedSocialMinijuegosCore.Controllers
         {
             if (estrellas != null)
             {
-                this.repo.Puntuacion((int)estrellas, nombre);
+                String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
+                 await this.repo.Puntuacion((int)estrellas, nombre,t);
             }
 
             if (id != null)
@@ -99,10 +104,12 @@ namespace RedSocialMinijuegosCore.Controllers
 
 
        
-        public async Task<ActionResult> Categorias()
+        public async Task<ActionResult> _Categorias()
         {
             List<Categoria> categoria = await this.repo.Categorias();
             return PartialView(categoria);
+            
+
         }
 
         //public ActionResult _Navegacion()
