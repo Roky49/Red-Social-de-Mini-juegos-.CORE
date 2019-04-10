@@ -83,18 +83,21 @@ namespace ApiMinijuegos.Repositories
         public void Puntuacion(int estrellas, String nombre)
         {
             Juego j1 = BuscarJuego(nombre);
-
+            estrellas *= 2; 
             if (j1.Nveces == null && j1.Valoracion == null)
             {
                 j1.Nveces = 1;
                 j1.Valoracion = estrellas;
+                j1.ValoracionTotal = j1.Valoracion / j1.Nveces;
             }
             else
             {
 
                 j1.Nveces += 1;
                 j1.Valoracion += estrellas;
+                j1.ValoracionTotal = j1.Valoracion / j1.Nveces;
             }
+           
             this.contex.SaveChanges();
 
 

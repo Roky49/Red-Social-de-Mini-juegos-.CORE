@@ -187,7 +187,7 @@ namespace ApiMinijuegos.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("[action]/{Puntuacion}/{nombre}")]
         //api/mini/puntuacion  
         public void puntuacion(int Puntuacion, string nombre)
         {

@@ -25,8 +25,8 @@ namespace RedSocialMinijuegosCore.Repositories
         public RepositoryMinijuegos()
         {
             
-            this.uriapi = "http://localhost:49885/";
-            //https://apiminijuegosrbc.azurewebsites.net/
+            this.uriapi = "http://localhost:61187/";
+         
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
             /*String keys =*/
@@ -314,7 +314,7 @@ new MediaTypeWithQualityHeaderValue("application/json");
             
         }
 
-        public async Task Puntuacion(int Puntuacion, string nombre,String token)
+        public async Task Puntuacion(int Puntuacion, string nombre)
         {
             using (HttpClient client = new HttpClient())
             {

@@ -25,8 +25,7 @@ namespace RedSocialMinijuegosCore.Controllers
         [HttpPost]
         public async Task<ActionResult> index(int estrellas, String nombre)
         {
-            String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
-            await this.repo.Puntuacion(estrellas, nombre,t);
+          
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
@@ -67,12 +66,13 @@ namespace RedSocialMinijuegosCore.Controllers
         {
             if (estrellas != null)
             {
-                String t = HttpContext.User.FindFirst(ClaimTypes.UserData).Value;
-                 await this.repo.Puntuacion((int)estrellas, nombre,t);
+               
+                 await this.repo.Puntuacion((int)estrellas, nombre);
             }
 
             if (id != null)
             {
+
                 List<Juego> j = await this.repo.BuscarJuegoCategoria((int)id);
                 return View(j);
             }

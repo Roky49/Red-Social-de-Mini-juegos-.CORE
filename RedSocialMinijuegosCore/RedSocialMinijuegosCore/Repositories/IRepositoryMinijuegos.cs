@@ -34,7 +34,7 @@ namespace RedSocialMinijuegosCore.Repositories
         Task EliminarJuego(String nombre, String token);
         Task CrearJuego(Juego juego, String token);
         Task InsertarPuntuacion(int puntos, String nombre,int id,String token);
-        Task Puntuacion(int Puntuacion, String nombre, String token);
+        Task Puntuacion(int Puntuacion, String nombre);
         Task BorrarUsuarios(int id, String token);
         Task EliminarCategoria(int id, String token);
         Task CrearCategoria(Categoria Categoria, String token);
