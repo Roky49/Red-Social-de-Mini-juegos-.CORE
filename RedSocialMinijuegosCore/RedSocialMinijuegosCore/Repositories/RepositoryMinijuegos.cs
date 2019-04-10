@@ -25,7 +25,7 @@ namespace RedSocialMinijuegosCore.Repositories
         public RepositoryMinijuegos()
         {
             
-            this.uriapi = "http://localhost:61187/";
+            this.uriapi = "http://localhost:49885/";
          
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
@@ -114,7 +114,13 @@ new MediaTypeWithQualityHeaderValue("application/json");
         //        this.root.GetFileReference(nombre);
         //    file.UploadFromStreamAsync(stream);
         //}
-
+        public async Task<List<Noticia>> GetNoticias()
+        {
+           
+            List<Noticia> juegos = await
+               this.CallApi<List<Noticia>>("api/mini/Noticias", null);
+            return juegos;
+        }
         public async Task<List<Juego>> GetJuegos()
         {
             List<Juego> juegos = await
@@ -206,17 +212,17 @@ new MediaTypeWithQualityHeaderValue("application/json");
             return usu;
         }
 
-        public async Task<List<Ranking>> GetTodos(long clave, int totalregistros)
+        public async Task<List<Ranking>> GetTodos()
         {
             List<Ranking> rankings = await
-       this.CallApi<List<Ranking>>("api/mini/GetTodos/" + clave+"/"+totalregistros, null);
+       this.CallApi<List<Ranking>>("api/mini/GetTodos", null);
             return rankings;
         }
 
-        public async Task<List<Ranking>> GetTodosJuego(long clave, int totalregistros, string juego)
+        public async Task<List<Ranking>> GetTodosJuego(string juego)
         {
             List<Ranking> rankings = await
-    this.CallApi<List<Ranking>>("api/mini/GetTodos/" + clave + "/" + totalregistros+"/"+juego, null);
+    this.CallApi<List<Ranking>>("api/mini/GetTodosRanking/" + juego, null);
             return rankings;
         }
 
@@ -277,6 +283,7 @@ new MediaTypeWithQualityHeaderValue("application/json");
                 cli.Css = juego.Css;
                 cli.Imagen = juego.Imagen;
                 cli.Nveces = 5;
+                cli.Scritp = juego.Scritp;
                 cli.Valoracion = 5;
                 cli.ValoracionTotal = 5;
                 client.BaseAddress = new Uri(uriapi);
@@ -332,34 +339,121 @@ new MediaTypeWithQualityHeaderValue("application/json");
             }
         }
 
-        public Task BorrarUsuarios(int id, string token)
+        public async Task BorrarUsuarios(int id, string token)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/BorrarUsuarios/" + id;
+
+
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                HttpResponseMessage message = await client.DeleteAsync(peticion);
+            }
         }
 
-        public Task EliminarCategoria(int id, string token)
+        public async Task EliminarCategoria(int id, string token)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/EliminarCategoria/" + id;
+
+
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                HttpResponseMessage message = await client.DeleteAsync(peticion);
+            }
         }
 
-        public Task CrearCategoria(Categoria Categoria, string token)
+        public async Task CrearCategoria(Categoria Categoria, string token)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/CrearCategoria";
+                Categoria cli = new Categoria();
+                cli.Nombre = Categoria.Nombre;
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PostAsync(peticion, content);
+            }
+        }
+        public async Task ModificarCategoria(Categoria categoria, string token)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/CrearCategoria";
+                Categoria cli = new Categoria();
+                cli.Nombre = categoria.Nombre;
+                cli.IdCategoria = categoria.IdCategoria;
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PutAsync(peticion, content);
+            }
         }
 
-        public Task ModificarCategoria(Categoria categoria, string token)
+        public async Task EditarUsuarios(Usuario u, string token)
         {
-            throw new NotImplementedException();
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/EditarUsuarios";
+                Usuario cli = new Usuario();
+                cli.Roles = u.Roles;
+                cli.Nombre = u.Nombre;
+                cli.IdUsuario = u.IdUsuario;
+                cli.Email = u.Email;
+                cli.PassWord = u.PassWord;
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
+
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PutAsync(peticion, content);
+            }
         }
 
-        public Task EditarUsuarios(Usuario u, string token)
+        public async Task ModificarJuego(Juego juego, string token)
         {
-            throw new NotImplementedException();
-        }
+            using (HttpClient client = new HttpClient())
+            {
+                String peticion = "api/mini/ModificarJuego";
+                Juego cli = new Juego();
+                cli.Nombre = juego.Nombre;
+                cli.Html = juego.Html;
+                cli.Scritp = juego.Scritp;
+                cli.Css = juego.Css;
+                client.BaseAddress = new Uri(uriapi);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(headerjson);
+                client.DefaultRequestHeaders.Add("Authorization", "bearer "
+                       + token);
 
-        public Task ModificarJuego(Juego juego, string token)
-        {
-            throw new NotImplementedException();
+                String stringJson = JsonConvert.SerializeObject(cli);
+                StringContent content = new StringContent(stringJson, Encoding.UTF8, "application/json");
+                HttpResponseMessage message = await client.PutAsync(peticion, content);
+            }
         }
     }
 }

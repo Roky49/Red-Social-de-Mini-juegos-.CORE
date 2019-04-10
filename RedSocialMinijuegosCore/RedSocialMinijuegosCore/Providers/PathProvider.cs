@@ -29,7 +29,7 @@ namespace RedSocialMinijuegosCore.Providers
                         foldername = "documents";
                         break;
                     case Folders.Images:
-                        foldername = "images";
+                        foldername = "img/Carrusel";
                         break;
                     default:
                         foldername = "uploads";

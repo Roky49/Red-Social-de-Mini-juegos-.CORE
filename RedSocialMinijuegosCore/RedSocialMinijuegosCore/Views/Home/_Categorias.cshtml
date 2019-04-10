@@ -3,7 +3,7 @@
 @foreach (Categoria j in Model)
 {
 
-    <li>
+    <li style="z-index:auto !important">
         @Html.ActionLink(j.Nombre, "GAMES", "Home", new { id = j.IdCategoria }, null)
     </li>
 

@@ -13,7 +13,7 @@ namespace ApiMinijuegos.Data
         public MinijuegosContex(DbContextOptions<MinijuegosContex> options) : base(options) { }
 
 
-   
+        public DbSet<Noticia> Noticias { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Juego> Juegos { get; set; } 

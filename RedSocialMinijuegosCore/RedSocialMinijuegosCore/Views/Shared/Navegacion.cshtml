@@ -5,10 +5,7 @@
 
 
     <ul>
-        <li>
-            <a asp-action="index"
-               asp-controller="Home">Home</a>
-        </li>
+       
         <li>
             <a asp-action="games"
                asp-controller="Home">Juegos</a>
@@ -52,7 +49,7 @@ else if (Context.User.IsInRole("User") == true)
         </li>
         <li>
             <a asp-action="games"
-               asp-controller="Juegos">Juegos</a>
+               asp-controller="Home">Juegos</a>
         </li>
         <li>
             <a asp-action="Chat"

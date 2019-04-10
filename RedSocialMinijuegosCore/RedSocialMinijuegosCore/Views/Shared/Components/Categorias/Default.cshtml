@@ -9,10 +9,9 @@
         @foreach (Categoria j in Model)
         {
 
-            @*<a asp-action="games" asp-controller="Home" asp-route="@j.IdCategoria">@j.Nombre</a>*@
-            @Html.ActionLink(j.Nombre, "games", "Home", new { id = j.IdCategoria }, null)
+             <a href="@Url.Action("games", "Juegos", new { id = j.IdCategoria })">@j.Nombre</a>
 
         }
 
-    </div>
+</div>
 </li>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ApiMinijuegos.Model;
+using ApiMinijuegos.Models;
 using ApiMinijuegos.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -138,11 +139,11 @@ namespace ApiMinijuegos.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/{clave}/{totalregistros}")]
+        [Route("[action]")]
         //api/mini/GetTodos/0/20 clave totalregistros
-        public ActionResult<List<Ranking>> GetTodos(int clave, int totalregistros)
+        public ActionResult<List<Ranking>> GetTodos()
         {
-            return this.repo.GetTodos(clave, totalregistros);
+            return this.repo.GetTodos();
         }
 
         [HttpGet]
@@ -155,11 +156,11 @@ namespace ApiMinijuegos.Controllers
 
 
         [HttpGet]
-        [Route("[action]/{clave}/{totalregistros}/{juego}")]
+        [Route("[action]/{juego}")]
         //api/mini/GetTodosRanking/0/12/2048 clave total
-        public ActionResult<List<Ranking>> GetTodosRanking(int clave, int totalregistros, String juego)
+        public ActionResult<List<Ranking>> GetTodosRanking( String juego)
         {
-            return this.repo.GetTodosJuego(clave, totalregistros, juego);
+            return this.repo.GetTodosJuego(juego);
         }
 
         [HttpPost]
@@ -253,6 +254,13 @@ namespace ApiMinijuegos.Controllers
         public void ModificarJuego(Juego juego)
         {
             this.repo.ModificarJuego(juego);
+        }
+        [HttpGet]
+        [Route("[action]")]
+     
+        public ActionResult<List<Noticia>> Noticias(int id)
+        {
+            return this.repo.GetNoticias(); 
         }
     }
 }

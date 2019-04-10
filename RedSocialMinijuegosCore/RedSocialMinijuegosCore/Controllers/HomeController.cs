@@ -11,21 +11,34 @@ namespace RedSocialMinijuegosCore.Controllers
     public class HomeController : Controller
     {
         IRepositoryMinijuegos repo;
+       
         public HomeController(IRepositoryMinijuegos repo)
         {
             this.repo = repo;
+            
         }
 
         public async Task<IActionResult> index()
         {
-          
+            List<Ranking> losmejores = new List<Ranking>();
+           
+                var usuarios = await
+              this.repo.GetTodos();
+
+
+          List<Noticia> noticias =  await this.repo.GetNoticias();
+
+            ViewBag.noticias = noticias;
+           
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
         [HttpPost]
         public async Task<ActionResult> index(int estrellas, String nombre)
         {
-          
+            List<Noticia> noticias = await this.repo.GetNoticias();
+
+            ViewBag.noticias = noticias;
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
@@ -148,13 +161,13 @@ namespace RedSocialMinijuegosCore.Controllers
 
 
              usuarios = await
-              this.repo.GetTodosJuego(clave.GetValueOrDefault(), numregistros, juego);
+              this.repo.GetTodosJuego(juego);
                 ViewBag.juego = juego;
             }
             else 
             {
                 clave = 0;
-                usuarios =  await this.repo.GetTodos(clave.GetValueOrDefault(),  numregistros);
+                usuarios =  await this.repo.GetTodos();
                 ViewBag.juego = "a";
             }
             ViewBag.Registros = numregistros;

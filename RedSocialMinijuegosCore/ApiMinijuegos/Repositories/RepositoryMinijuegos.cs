@@ -1,5 +1,6 @@
 ﻿using ApiMinijuegos.Data;
 using ApiMinijuegos.Model;
+using ApiMinijuegos.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
@@ -18,6 +19,14 @@ namespace ApiMinijuegos.Repositories
             this.contex = contex;
         }
 
+
+        public List<Noticia> GetNoticias()
+        {
+            var consulta = from datos in contex.Noticias
+                           orderby datos.IdTitular descending
+                           select datos;
+            return consulta.ToList();
+        }
         public void ModificarJuego(Juego juego)
         {
             var consulta = from datos in contex.Juegos where datos.Nombre == juego.Nombre select datos;
@@ -304,27 +313,25 @@ namespace ApiMinijuegos.Repositories
 
 
 
-        public List<Ranking> GetTodos(Int64 clave, int totalregistros)
+        public List<Ranking> GetTodos()
         {
-            var consulta = from datos in contex.Rankings
-
+            var consulta = from datos in contex.Rankings 
+                           orderby datos.Clave descending
                            select datos;
 
-            totalregistros = consulta.Count();
-
-            return consulta.OrderByDescending(z => z.Clave).Skip((int)clave).Take(20).ToList();
+            return consulta.ToList();
 
 
         }
 
-        public List<Ranking> GetTodosJuego(Int64 clave,  int totalregistros, string juego)
+        public List<Ranking> GetTodosJuego( string juego)
         {
             var consulta = from datos in contex.Rankings
                            where datos.NombreJuego == juego
                            select datos;
-            totalregistros = consulta.Count();
-          
-            return consulta.OrderByDescending(z => z.Puntuacion).Skip((int)clave).Take(7).ToList();
+
+
+            return consulta.ToList();
         }
 
         public List<string> Nombrejuego()

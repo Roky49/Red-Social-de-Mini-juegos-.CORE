@@ -10,6 +10,7 @@ namespace RedSocialMinijuegosCore.Repositories
 {
     public interface IRepositoryMinijuegos
     {
+        Task<List<Noticia>> GetNoticias();
         Task<String> GetToken(String usuario, String password);
         Task<List<Juego>> GetJuegos();
         Task<List<Categoria>> Categorias();
@@ -27,9 +28,9 @@ namespace RedSocialMinijuegosCore.Repositories
 
         void UploadFile(String nombre, Stream stream);
         Task<List<MostrarPerfil>> GetMostrarPerfils(String Usuario,String token);
-        Task<List<Ranking>> GetTodos(Int64 clave, int totalregistros);
+        Task<List<Ranking>> GetTodos();
 
-        Task<List<Ranking>> GetTodosJuego(Int64 clave, int totalregistros, String juego);
+        Task<List<Ranking>> GetTodosJuego( String juego);
         Task NuevoUsuario(String usuario, String email, String password);
         Task EliminarJuego(String nombre, String token);
         Task CrearJuego(Juego juego, String token);

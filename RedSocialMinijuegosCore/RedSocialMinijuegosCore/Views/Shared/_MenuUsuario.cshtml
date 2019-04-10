@@ -3,12 +3,14 @@
 }
 @if (Context.User.Identity.IsAuthenticated)
 {
-    //SU NOMBRE Y CERRAR SESSION
-    <a asp-controller="Validador" asp-action="CerrarSesion"
-       class="nav-link">Cerrar sesión</a>
-    <img src="~/img/authors/1.jpg" style="width:40px; height: 40px"
-         class="img-thumbnail" />
-    <span style="color:white">@Context.User.Identity.Name</span>
+    
+
+    <a href="@Url.Action("Perfil", "Juegos")">Perfil    /</a>
+    <a href="@Url.Action("CerrarSesion", "Validador")">Cerrar sesión</a>
+
+    <div style="text-align:center">
+        <h5>Hola <span style="color:red">@Context.User.Identity.Name</span></h5>
+    </div>
 }
 else
 {
@@ -20,14 +22,3 @@ else
 }
 
 
-@*<div class="dropdown show">
-    <a style="color:red" class=" py-2 d-none d-md-inline-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @HttpContext.Current.User.Identity.Name
-    </a>
-
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="@Url.Action("Perfil", "Juegos", new { usuario =HttpContext.Current.User.Identity.Name})">Mi perfil</a>
-
-        <a class="dropdown-item" href="@Url.Action("CerrarSesion", "Validador")">Cerrar Sesion</a>
-    </div>
-</div>*@

@@ -22,7 +22,7 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public JuegosController(IRepositoryMinijuegos repo)
         {
-
+            
             this.repo = repo; ;
         }
         // GET: Juegos
@@ -45,16 +45,17 @@ namespace RedSocialMinijuegosCore.Controllers
 
         public ActionResult Chat()
         {
-
+          
             return View();
         }
 
 
-        public async Task<ActionResult> Perfil(String usuario)
+        public async Task<ActionResult> Perfil()
         {
             String token = HttpContext.Session.GetString("TOKEN");
-            Usuario usu = await this.repo.BuscarUsuarioMote(usuario,token);
-            List<MostrarPerfil> perfil = await this.repo.GetMostrarPerfils(usuario, token);
+            String user = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            Usuario usu = await this.repo.BuscarUsuarioMote(user, token);
+            List<MostrarPerfil> perfil = await this.repo.GetMostrarPerfils(user, token);
             ViewBag.usario = usu;
             return View(perfil);
         }

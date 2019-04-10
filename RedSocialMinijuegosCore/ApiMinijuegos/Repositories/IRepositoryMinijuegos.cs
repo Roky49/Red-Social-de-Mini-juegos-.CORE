@@ -1,5 +1,6 @@
 ﻿using ApiMinijuegos.Data;
 using ApiMinijuegos.Model;
+using ApiMinijuegos.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace ApiMinijuegos.Repositories
 {
      public interface IRepositoryMinijuegos
     {
-        
-       
+        List<Noticia> GetNoticias();
+
         List<Juego> GetJuegos();
         List<Categoria> Categorias();
         List<Usuario> GetUsuarios();
@@ -27,9 +28,9 @@ namespace ApiMinijuegos.Repositories
 
 
         List<MostrarPerfil> GetMostrarPerfils(String Usuario);
-        List<Ranking> GetTodos(Int64 clave, int totalregistros);
+        List<Ranking> GetTodos();
 
-        List<Ranking> GetTodosJuego(Int64 clave,  int totalregistros, String juego);
+        List<Ranking> GetTodosJuego(String juego);
         void NuevoUsuario(String usuario, String email, String password);
         void EliminarJuego(String nombre);
         void CrearJuego(Juego juego);
