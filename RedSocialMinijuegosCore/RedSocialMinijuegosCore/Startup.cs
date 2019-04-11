@@ -22,6 +22,7 @@ namespace RedSocialMinijuegosCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //https://www.gamingdays40.com/category/torneos/feed/
         }
 
         public IConfiguration Configuration { get; }
