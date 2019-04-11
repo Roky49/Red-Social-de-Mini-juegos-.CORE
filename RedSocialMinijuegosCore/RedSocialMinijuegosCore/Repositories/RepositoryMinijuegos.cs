@@ -25,7 +25,7 @@ namespace RedSocialMinijuegosCore.Repositories
         public RepositoryMinijuegos()
         {
             
-            this.uriapi = "http://localhost:49885/";
+            this.uriapi = "https://apiminijuegosrbc.azurewebsites.net/";
          
             this.headerjson =
 new MediaTypeWithQualityHeaderValue("application/json");
@@ -43,6 +43,14 @@ new MediaTypeWithQualityHeaderValue("application/json");
         //    CloudBlobContainer container = blobClient.GetContainerReference("sharedtajamar");
         //    return container;
         //}
+
+        public async Task<List<Ranking>> MaxRanking()
+        {
+            List<Ranking> juegos = await
+               this.CallApi<List<Ranking>>("api/mini/MaxRanking", null);
+            return juegos;
+        }
+
 
         public async Task<String> GetToken(String usuario
             , String password)

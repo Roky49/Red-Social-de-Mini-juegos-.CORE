@@ -26,10 +26,13 @@ namespace RedSocialMinijuegosCore.Controllers
               this.repo.GetTodos();
 
 
-          List<Noticia> noticias =  await this.repo.GetNoticias();
+         List<Noticia> noticias =  await this.repo.GetNoticias();
 
             ViewBag.noticias = noticias;
-           
+            List<Ranking> maxrankin = await this.repo.MaxRanking();
+
+            ViewBag.max = maxrankin;
+
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }
@@ -39,6 +42,11 @@ namespace RedSocialMinijuegosCore.Controllers
             List<Noticia> noticias = await this.repo.GetNoticias();
 
             ViewBag.noticias = noticias;
+
+            List<Ranking> maxrankin = await this.repo.MaxRanking();
+
+            ViewBag.max = maxrankin;
+
             List<Juego> juegos = await this.repo.GetJuegos();
             return View(juegos);
         }

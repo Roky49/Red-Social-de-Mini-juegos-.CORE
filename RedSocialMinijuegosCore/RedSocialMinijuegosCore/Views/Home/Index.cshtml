@@ -25,9 +25,11 @@
     <div class="ln-title">Mejores Puntuaciones</div>
     <div class="news-ticker">
         <div class="news-ticker-contant">
-            <div class="nt-item"><span class="new">new</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </div>
-            <div class="nt-item"><span class="strategy">strategy</span>Isum dolor sit amet, consectetur adipiscing elit. </div>
-            <div class="nt-item"><span class="racing">racing</span>Isum dolor sit amet, consectetur adipiscing elit. </div>
+            @foreach (Ranking i in ViewBag.max)
+            {
+                <div class="nt-item"><span class="new">@i.NombreJuego</span>@i.Nombre ------  @i.Puntuacion</div>
+                
+            }
         </div>
     </div>
 </div>
@@ -152,17 +154,20 @@
             <div class="row">
                 @foreach (Juego a in Model)
                 {
-                    <div class="col-lg-3 col-md-6">
-                        <div class="review-item">
-                            <div class="review-cover set-bg" data-setbg="img/Carrusel/@a.Imagen">
-                                <div class="score yellow">@a.ValoracionTotal</div>
-                            </div>
-                            <div class="review-text">
-                                <h5>@a.Nombre</h5>
+                    
+                        <div class="col-lg-3 col-md-6">
+                            <div class="review-item">
+                                <div class="review-cover set-bg" data-setbg="img/Carrusel/@a.Imagen">
+                                    <div class="score yellow">@a.ValoracionTotal</div>
+                                </div>
+                                <div class="review-text">
+                                    <h5>@a.Nombre</h5>
+                                    <a href="@Url.Action("Index", "Juegos", new { nombre = a.Nombre })">Jugar</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
+                        
+                        }
+                </div>
         </div>
     </section>

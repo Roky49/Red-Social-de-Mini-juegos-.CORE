@@ -10,6 +10,7 @@ namespace RedSocialMinijuegosCore.Repositories
 {
     public interface IRepositoryMinijuegos
     {
+        Task<List<Ranking>> MaxRanking();
         Task<List<Noticia>> GetNoticias();
         Task<String> GetToken(String usuario, String password);
         Task<List<Juego>> GetJuegos();

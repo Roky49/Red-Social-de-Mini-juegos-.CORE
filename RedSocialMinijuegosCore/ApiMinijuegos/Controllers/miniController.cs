@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ApiMinijuegos.Model;
 using ApiMinijuegos.Models;
 using ApiMinijuegos.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -173,6 +174,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpDelete]
         [Route("[action]/{nombre}")]
+        [Authorize]
         //api/mini/EliminarJuego/prubea
         public void EliminarJuego(String nombre)
         {
@@ -181,6 +183,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        //[Authorize]
         //api/mini/CrearJuego  + json
         public void CrearJuego(Juego juego)
         {
@@ -197,6 +200,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPost]
         [Route("[action]/{puntos}/{nombre}/{id}")]
+
         //api/mini/InsertarPuntuacion/100/prubea
         public void InsertarPuntuacion(int puntos, String nombre,int id)
         {
@@ -207,6 +211,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpDelete]
         [Route("[action]/{id}")]
+       
         //api/mini/BorrarUsuarios/6
         public void BorrarUsuarios(int id)
         {
@@ -216,6 +221,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpDelete]
         [Route("[action]/{id}")]
+     
         //api/mini/EliminarCategoria/6
         public void EliminarCategoria(int id)
         {
@@ -226,6 +232,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPost]
         [Route("[action]")]
+        //[Authorize]
         ///api/mini/CrearCategoria +json
         public void CrearCategoria(Categoria categoria)
         {
@@ -234,6 +241,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPut]
         [Route("[action]")]
+        //[Authorize]
         //api/mini/ModificarCategoria +json
         public void ModificarCategoria(Categoria categoria)
         {
@@ -242,6 +250,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPut]
         [Route("[action]")]
+        //[Authorize]
         //api/mini/EditarUsuarios
         public void EditarUsuarios(Usuario usuario)
         {
@@ -250,6 +259,7 @@ namespace ApiMinijuegos.Controllers
 
         [HttpPut]
         [Route("[action]")]
+        //[Authorize]
         //api/mini/ModificarJuego + Json 
         public void ModificarJuego(Juego juego)
         {
@@ -261,6 +271,17 @@ namespace ApiMinijuegos.Controllers
         public ActionResult<List<Noticia>> Noticias(int id)
         {
             return this.repo.GetNoticias(); 
+        }
+
+
+
+        [HttpGet]
+        [Route("[action]")]
+       
+        //api/mini/MaxRanking
+        public ActionResult<List<Ranking>> MaxRanking()
+        {
+            return this.repo.MaxRanking();
         }
     }
 }

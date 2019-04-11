@@ -352,6 +352,12 @@ namespace ApiMinijuegos.Repositories
             return consulta.ToList();
         }
 
+        public List<Ranking> MaxRanking()
+        {
+            var max = contex.Rankings.GroupBy(x => x.NombreJuego);
+            return max.SelectMany(z => z.Where(y => y.Puntuacion == z.Max(v => v.Puntuacion))).ToList();
+        }
+
 
     }
 }

@@ -12,6 +12,7 @@ namespace ApiMinijuegos.Repositories
     {
         List<Noticia> GetNoticias();
 
+        List<Ranking> MaxRanking();
         List<Juego> GetJuegos();
         List<Categoria> Categorias();
         List<Usuario> GetUsuarios();
