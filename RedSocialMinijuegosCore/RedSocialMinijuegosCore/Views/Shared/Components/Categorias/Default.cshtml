@@ -9,7 +9,7 @@
         @foreach (Categoria j in Model)
         {
 
-             <a href="@Url.Action("games", "Juegos", new { id = j.IdCategoria })">@j.Nombre</a>
+             <a href="@Url.Action("games", "Home", new { id = j.IdCategoria })">@j.Nombre</a>
 
         }
 

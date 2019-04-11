@@ -328,6 +328,7 @@ namespace ApiMinijuegos.Repositories
         {
             var consulta = from datos in contex.Rankings
                            where datos.NombreJuego == juego
+                           orderby datos.Puntuacion descending
                            select datos;
 
 
